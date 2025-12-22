@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { soundGenerator } from "../utils/sounds";
+import { getVirusState } from "../utils/virus";
+import { corruptRandomChars } from "../utils/textCorruption";
 
 import { UserInfo } from "../types";
 
@@ -34,6 +36,16 @@ export const TerminalInput = ({
   measureRef,
   userInfo,
 }: TerminalInputProps) => {
+  const [virusState, setVirusState] = useState(() => getVirusState());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const state = getVirusState();
+      setVirusState(state);
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     if (!isTypingOutput && inputRef.current) {
       inputRef.current.focus();
@@ -41,11 +53,16 @@ export const TerminalInput = ({
     }
   }, [isTypingOutput, setIsInputFocused, inputRef]);
 
+  const isCorruptionActive =
+    virusState?.isInfected && virusState?.virusType === "corruption";
+
+  const corruptedPrompt = isCorruptionActive
+    ? corruptRandomChars(`${userInfo.username}@${userInfo.hostname}:~$`, 0.3)
+    : `${userInfo.username}@${userInfo.hostname}:~$`;
+
   return (
     <div className="command-input">
-      <span className="prompt">
-        {userInfo.username}@{userInfo.hostname}:~$
-      </span>
+      <span className="prompt">{corruptedPrompt}</span>
       <div className="input-wrapper">
         <input
           ref={inputRef}

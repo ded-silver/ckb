@@ -23,6 +23,7 @@ export interface CommandResult {
   theme?: Theme;
   notification?: string;
   shouldDestroy?: boolean;
+  isVirusActive?: boolean;
 }
 
 export type CommandFunction = (args?: string[]) => string[] | Promise<string[]>;

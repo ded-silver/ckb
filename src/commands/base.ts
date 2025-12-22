@@ -87,6 +87,8 @@ export const baseCommands: Record<string, (args?: string[]) => string[]> = {
       "  hack [target]     - Simulate hacking",
       "  scan              - Scan network",
       "  connect <target>  - Connect to target",
+      "  disconnect [target] - Close active session",
+      "  sessions          - Show active hack sessions",
       "",
       "GAMES:",
       "  crack <target> <password> - Crack server password",

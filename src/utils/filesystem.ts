@@ -14,6 +14,11 @@ const defaultFileSystem: Record<string, FileSystemNode> = {
             content:
               "[2077-03-15 14:23] First Entry\nStarted investigating NeoCorp activities.\nSomething's wrong with their new 'Alpha' project.\n\n[2077-03-16 09:45] Anomaly Detected\nNetwork scan showed strange activity\non server 192.168.1.100. Need to investigate.\n\n[2077-03-17 22:10] Breakthrough!\nHacked into NeoCorp server. Found encrypted files.\nNeed to find a way to decrypt them.\n\n[2077-03-18 11:30] Password Discovery\nFound admin credentials for 192.168.1.42:\nAdmin always uses simple passwords: ADMIN + numbers\nPattern: ADMIN123 (8 chars, uppercase + digits)",
           },
+          "contacts.txt": {
+            type: "file",
+            content:
+              'HACKER CONTACTS\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nLAIN\n  Handle: @lain_iwakura\n  Status: Connected to Wired\n  Specialty: Reality manipulation\n  Last seen: Present everywhere, Present nowhere\n  Note: "Present day, present time. HAHAHAHA."\n  WARNING: Do not attempt to understand. Present it.\n\nV\n  Handle: @v_nomad\n  Status: Active\n  Specialty: Netrunning & Solo operations\n  Last seen: 2077-12-10\n  Location: Night City\n  Note: Former streetkid, now legend. Has engram of Johnny Silverhand.\n\nJOHNNY\n  Handle: @silverhand_2077\n  Status: ENGRAM (Active in V\'s head)\n  Specialty: Rockerboy, revolutionary\n  Last seen: 2023 (original), 2077 (as engram)\n  Note: "Wake the fuck up, samurai. We have a city to burn."\n  WARNING: Unstable engram, may cause personality conflicts\n\nJUDY\n  Handle: @judy_alvarez\n  Status: Active\n  Specialty: Braindance editing, netrunning\n  Last seen: 2077-12-15\n  Location: Night City (Pacifica)\n  Note: Best BD editor in NC. Trustworthy, but watch for Mox connections.\n\nKILLY\n  Handle: @killy_seeker\n  Status: Wandering\n  Specialty: Gravitational Beam Emitter, survival\n  Last seen: Unknown (time dilation active)\n  Location: The City (possibly Earth, possibly future)\n  Note: Searching for Net Terminal Genes. Has been traveling for 3000+ years.\n  WARNING: Do not interfere with mission. Extremely dangerous.\n\nCIBO\n  Handle: @cibo_researcher\n  Status: UNKNOWN (last seen with Killy)\n  Specialty: Genetic research, Net Terminal access\n  Last seen: Unknown\n  Location: The City, deep levels\n  Note: Former Safeguard scientist. May have Net Terminal Genes.\n  WARNING: Status uncertain after last contact with Safeguard',
+          },
         },
       },
       projects: {
@@ -77,13 +82,23 @@ const defaultFileSystem: Record<string, FileSystemNode> = {
     content:
       "[2077-03-15 14:23] First Entry\nStarted investigating NeoCorp activities.\nSomething's wrong with their new 'Alpha' project.\n\n[2077-03-16 09:45] Anomaly Detected\nNetwork scan showed strange activity\non server 192.168.1.100. Need to investigate.\n\n[2077-03-17 22:10] Breakthrough!\nHacked into NeoCorp server. Found encrypted files.\nNeed to find a way to decrypt them.",
   },
+  "/home/user/documents/contacts.txt": {
+    type: "file",
+    content:
+      'HACKER CONTACTS\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nLAIN\n  Handle: @lain_iwakura\n  Status: Connected to Wired\n  Specialty: Reality manipulation\n  Last seen: Present everywhere, Present nowhere\n  Note: "Present day, present time. HAHAHAHA."\n  WARNING: Do not attempt to understand. Present it.\n\nV\n  Handle: @v_nomad\n  Status: Active\n  Specialty: Netrunning & Solo operations\n  Last seen: 2077-12-10\n  Location: Night City\n  Note: Former streetkid, now legend. Has engram of Johnny Silverhand.\n\nJOHNNY\n  Handle: @silverhand_2077\n  Status: ENGRAM (Active in V\'s head)\n  Specialty: Rockerboy, revolutionary\n  Last seen: 2023 (original), 2077 (as engram)\n  Note: "Wake the fuck up, samurai. We have a city to burn."\n  WARNING: Unstable engram, may cause personality conflicts\n\nJUDY\n  Handle: @judy_alvarez\n  Status: Active\n  Specialty: Braindance editing, netrunning\n  Last seen: 2077-12-15\n  Location: Night City (Pacifica)\n  Note: Best BD editor in NC. Trustworthy, but watch for Mox connections.\n\nKILLY\n  Handle: @killy_seeker\n  Status: Wandering\n  Specialty: Gravitational Beam Emitter, survival\n  Last seen: Unknown (time dilation active)\n  Location: The City (possibly Earth, possibly future)\n  Note: Searching for Net Terminal Genes. Has been traveling for 3000+ years.\n  WARNING: Do not interfere with mission. Extremely dangerous.\n\nCIBO\n  Handle: @cibo_researcher\n  Status: UNKNOWN (last seen with Killy)\n  Specialty: Genetic research, Net Terminal access\n  Last seen: Unknown\n  Location: The City, deep levels\n  Note: Former Safeguard scientist. May have Net Terminal Genes.\n  WARNING: Status uncertain after last contact with Safeguard',
+  },
   "/home/user/projects": {
     type: "dir",
     contents: {
       "virus_prototype.asm": {
         type: "file",
         content:
-          "; VIRUS PROTOTYPE - DO NOT EXECUTE\n; Author: Unknown\n; Date: 2077-03-10\n\nsection .text\n    global _start\n\n_start:\n    ; Self-replication code\n    ; WARNING: This is experimental\n    ; Use at your own risk\n\n    mov eax, 1\n    int 0x80",
+          "; VIRUS PROTOTYPE - DO NOT EXECUTE\n; Author: Unknown\n; Date: 2077-03-10\n\n; KILL SWITCH CODE: PROTOTYPE-KILL-SWITCH\n; If virus activates, use this code with antivirus command\n; Usage: antivirus PROTOTYPE-KILL-SWITCH\n\nsection .text\n    global _start\n\n_start:\n    ; Self-replication code\n    ; WARNING: This is experimental\n    ; Use at your own risk\n\n    mov eax, 1\n    int 0x80",
+      },
+      "killswitch.txt": {
+        type: "file",
+        content:
+          "VIRUS PROTOTYPE KILL SWITCH\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n[2077-03-10] Prototype Documentation\n[2077-03-10] Author: Unknown\n[2077-03-10] Classification: EXPERIMENTAL\n\nThis file contains the kill switch code for the\nvirus prototype. If the prototype activates and\ngoes out of control, use this code to deactivate it.\n\nKILL SWITCH CODE:\nPROTOTYPE-KILL-SWITCH\n\nUsage: antivirus PROTOTYPE-KILL-SWITCH\n\nWARNING: This code only works for prototype-type viruses.\nFor other virus types, different codes are required.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nVIRUS TYPE: Prototype\nKILL SWITCH: PROTOTYPE-KILL-SWITCH\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       },
       "exploit_framework.c": {
         type: "file",
@@ -95,7 +110,12 @@ const defaultFileSystem: Record<string, FileSystemNode> = {
   "/home/user/projects/virus_prototype.asm": {
     type: "file",
     content:
-      "; VIRUS PROTOTYPE - DO NOT EXECUTE\n; Author: Unknown\n; Date: 2077-03-10\n\nsection .text\n    global _start\n\n_start:\n    ; Self-replication code\n    ; WARNING: This is experimental\n    ; Use at your own risk\n\n    mov eax, 1\n    int 0x80",
+      "; VIRUS PROTOTYPE - DO NOT EXECUTE\n; Author: Unknown\n; Date: 2077-03-10\n\n; KILL SWITCH CODE: PROTOTYPE-KILL-SWITCH\n; If virus activates, use this code with antivirus command\n; Usage: antivirus PROTOTYPE-KILL-SWITCH\n\nsection .text\n    global _start\n\n_start:\n    ; Self-replication code\n    ; WARNING: This is experimental\n    ; Use at your own risk\n\n    mov eax, 1\n    int 0x80",
+  },
+  "/home/user/projects/killswitch.txt": {
+    type: "file",
+    content:
+      "VIRUS PROTOTYPE KILL SWITCH\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n[2077-03-10] Prototype Documentation\n[2077-03-10] Author: Unknown\n[2077-03-10] Classification: EXPERIMENTAL\n\nThis file contains the kill switch code for the\nvirus prototype. If the prototype activates and\ngoes out of control, use this code to deactivate it.\n\nKILL SWITCH CODE:\nPROTOTYPE-KILL-SWITCH\n\nUsage: antivirus PROTOTYPE-KILL-SWITCH\n\nWARNING: This code only works for prototype-type viruses.\nFor other virus types, different codes are required.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nVIRUS TYPE: Prototype\nKILL SWITCH: PROTOTYPE-KILL-SWITCH\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
   },
   "/home/user/projects/exploit_framework.c": {
     type: "file",
@@ -143,6 +163,8 @@ const migrateFileSystem = (
 ): Record<string, FileSystemNode> => {
   const migrated = { ...fs };
 
+  const systemFilesToUpdate = ["/home/user/documents/contacts.txt"];
+
   for (const [path, node] of Object.entries(defaultFileSystem)) {
     if (!migrated[path]) {
       migrated[path] = JSON.parse(JSON.stringify(node));
@@ -152,10 +174,105 @@ const migrateFileSystem = (
       }
       if (node.contents) {
         for (const [name, child] of Object.entries(node.contents)) {
-          if (!migrated[path].contents![name]) {
+          const fullPath = path === "/" ? `/${name}` : `${path}/${name}`;
+
+          if (
+            systemFilesToUpdate.includes(fullPath) &&
+            node.contents[name].type === "file"
+          ) {
+            migrated[path].contents![name] = JSON.parse(JSON.stringify(child));
+            if (migrated[fullPath]) {
+              migrated[fullPath] = JSON.parse(JSON.stringify(child));
+            }
+          } else if (!migrated[path].contents![name]) {
             migrated[path].contents![name] = JSON.parse(JSON.stringify(child));
           }
         }
+      }
+    } else if (node.type === "file" && systemFilesToUpdate.includes(path)) {
+      migrated[path] = JSON.parse(JSON.stringify(node));
+    }
+  }
+
+  const lainMessagePath = "/home/user/secrets/message_from_lain.dat";
+  const lainCodePath = "/home/user/secrets/lain_disconnect_code.txt";
+
+  if (migrated[lainMessagePath] && !migrated[lainCodePath]) {
+    const secretsDir = "/home/user/secrets";
+    if (
+      migrated[secretsDir] &&
+      migrated[secretsDir].type === "dir" &&
+      migrated[secretsDir].contents
+    ) {
+      const deactivationCodeContent = `LAIN DISCONNECT CODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[2077-03-20 14:45] Found in Wired message metadata
+[2077-03-20 14:45] Source: lain@wired.2077
+[2077-03-20 14:45] Classification: INTERNAL USE ONLY
+
+This file contains the disconnect code for adware
+viruses sent through Wired messages.
+
+If you have activated an adware virus from Lain's
+message, use this code to deactivate it:
+
+LAIN-DISCONNECT-2077
+
+Usage: antivirus LAIN-DISCONNECT-2077
+
+Note: This code only works for adware-type viruses.
+For other virus types, different codes are required.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VIRUS TYPE: Adware
+DISCONNECT CODE: LAIN-DISCONNECT-2077
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+      migrated[secretsDir].contents!["lain_disconnect_code.txt"] = {
+        type: "file",
+        content: deactivationCodeContent,
+      };
+      migrated[lainCodePath] = {
+        type: "file",
+        content: deactivationCodeContent,
+      };
+
+      const corruptedUnicodePath = `${secretsDir}/corrupted_unicode.dat`;
+      const unicodeFixCodePath = `${secretsDir}/unicode_fix_code.txt`;
+      if (migrated[corruptedUnicodePath] && !migrated[unicodeFixCodePath]) {
+        const unicodeFixCodeContent = `UNICODE FIX CODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[2077-03-20 15:00] Found in system encoding logs
+[2077-03-20 15:00] Source: System encoding repair tool
+[2077-03-20 15:00] Classification: INTERNAL USE ONLY
+
+This file contains the fix code for corruption
+viruses that corrupt Unicode text encoding.
+
+If you have activated a corruption virus, use this code
+to deactivate it and restore text encoding:
+
+UNICODE-FIX-UTF8
+
+Usage: antivirus UNICODE-FIX-UTF8
+
+Note: This code only works for corruption-type viruses.
+For other virus types, different codes are required.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VIRUS TYPE: Corruption
+FIX CODE: UNICODE-FIX-UTF8
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+        migrated[secretsDir].contents!["unicode_fix_code.txt"] = {
+          type: "file",
+          content: unicodeFixCodeContent,
+        };
+        migrated[unicodeFixCodePath] = {
+          type: "file",
+          content: unicodeFixCodeContent,
+        };
       }
     }
   }

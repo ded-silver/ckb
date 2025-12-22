@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useTerminal } from "../hooks/useTerminal";
 import { useCommandHistory } from "../hooks/useCommandHistory";
 import { useCursor } from "../hooks/useCursor";
@@ -6,6 +6,8 @@ import { TerminalInput } from "./TerminalInput";
 import { CommandHistory } from "./CommandHistory";
 import { TerminalProps } from "../types";
 import { getASCIILogo } from "../constants";
+import { getVirusState } from "../utils/virus";
+import { corruptRandomChars } from "../utils/textCorruption";
 import "./Terminal.css";
 
 const Terminal = ({
@@ -64,6 +66,27 @@ const Terminal = ({
   );
 
   const currentLogo = getASCIILogo(theme);
+
+  const [virusState, setVirusState] = useState(() => getVirusState());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const state = getVirusState();
+      setVirusState(state);
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  const corruptedOutput = useMemo(() => {
+    const isCorruptionActive =
+      virusState?.isInfected && virusState?.virusType === "corruption";
+
+    if (!isCorruptionActive) {
+      return output;
+    }
+
+    return output.map((line) => corruptRandomChars(line, 0.35));
+  }, [output, virusState]);
 
   // Анимация логотипа
   useEffect(() => {
@@ -172,7 +195,7 @@ const Terminal = ({
         <pre className="ascii-logo">{currentLogo}</pre>
 
         <div className="terminal-output">
-          {output.map((line, index) => (
+          {corruptedOutput.map((line, index) => (
             <div key={index} className="output-line">
               {line}
             </div>

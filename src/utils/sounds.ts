@@ -95,6 +95,31 @@ class SoundGenerator {
     setTimeout(() => this.playTone(600, 0.1, "sine", 0.06), 200);
   }
 
+  // Звук заражения
+  playVirusInfection() {
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => {
+        this.playTone(200 + i * 50, 0.2, "sawtooth", 0.2);
+      }, i * 200);
+    }
+    setTimeout(() => {
+      this.playTone(150, 0.3, "sawtooth", 0.25);
+    }, 600);
+  }
+
+  // Звук лечения
+  playVirusCure() {
+    this.playTone(400, 0.1, "sine", 0.1);
+    setTimeout(() => this.playTone(500, 0.1, "sine", 0.1), 100);
+    setTimeout(() => this.playTone(600, 0.1, "sine", 0.1), 200);
+    setTimeout(() => this.playTone(700, 0.15, "sine", 0.12), 300);
+  }
+
+  // Звук тикающего таймера
+  playVirusTick() {
+    this.playTone(800, 0.05, "square", 0.05);
+  }
+
   // Включить/выключить звуки
   setEnabled(enabled: boolean) {
     this.enabled = enabled;

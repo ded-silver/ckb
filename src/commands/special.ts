@@ -1,6 +1,12 @@
 import { Theme, CommandResult, TerminalSize, UserInfo } from "../types";
 import { THEMES } from "../constants";
 import { soundGenerator } from "../utils/sounds";
+import {
+  getVirusState,
+  clearVirusState,
+  getVirusCureOutput,
+  checkDeactivationCode,
+} from "../utils/virus";
 
 export const handleHistoryCommand = (
   rawHistory?: string[],
@@ -309,4 +315,42 @@ export const handleConfigCommand = (
       "",
     ],
   };
+};
+
+export const handleAntivirusCommand = (args?: string[]): CommandResult => {
+  const virusState = getVirusState();
+
+  if (!virusState || !virusState.isInfected) {
+    return {
+      output: ["No virus detected.", "System is clean.", ""],
+    };
+  }
+
+  const code = args && args.length > 0 ? args.join(" ") : undefined;
+
+  if (!code) {
+    return {
+      output: getVirusCureOutput(),
+      isError: true,
+    };
+  }
+
+  if (!checkDeactivationCode(code, virusState.virusType)) {
+    soundGenerator.playError();
+    return {
+      output: getVirusCureOutput(code),
+      isError: true,
+    };
+  }
+
+  clearVirusState();
+  soundGenerator.playVirusCure();
+
+  return {
+    output: getVirusCureOutput(code),
+  };
+};
+
+export const handleCureCommand = (): CommandResult => {
+  return handleAntivirusCommand();
 };

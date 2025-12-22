@@ -4,6 +4,13 @@ import {
   getServerByIP,
   isServerCracked,
 } from "../utils/servers";
+import {
+  addSession,
+  removeSession,
+  getActiveSessions,
+  hasActiveSession,
+  clearAllSessions,
+} from "../utils/sessions";
 
 export const networkCommands: Record<string, CommandFunction> = {
   hack: (args) => {
@@ -28,6 +35,7 @@ export const networkCommands: Record<string, CommandFunction> = {
 
     const targetIP = target || randomIP();
     const server = target ? getServerByIP(target) : null;
+    const finalTarget = target || targetIP;
 
     if (server && server.requiresCrack && target) {
       if (isServerCracked(target)) {
@@ -35,6 +43,14 @@ export const networkCommands: Record<string, CommandFunction> = {
           () => Math.random() - 0.5
         );
         const dataSize = Math.floor(Math.random() * 5000) + 1000;
+
+        addSession({
+          targetIP: finalTarget,
+          startTime: Date.now(),
+          dataSize,
+          accessLevel: "ADMIN",
+        });
+
         return [
           `> Initializing hack sequence for target: ${target}`,
           "",
@@ -54,6 +70,7 @@ export const networkCommands: Record<string, CommandFunction> = {
           "",
           `> Hack complete. System ${targetIP} compromised.`,
           `> Data extracted: ${dataSize} KB`,
+          `> Session active. Type "disconnect" to close.`,
           "",
         ];
       } else {
@@ -71,7 +88,7 @@ export const networkCommands: Record<string, CommandFunction> = {
           "> Standard exploits failed - password required",
           "",
           "> [PHASE 3] Authentication required",
-          "> ⚠ PASSWORD PROTECTION DETECTED ⚠",
+          "> PASSWORD PROTECTION DETECTED",
           "",
           `> This server requires password cracking.`,
           `> Use: crack ${target} <password>`,
@@ -136,7 +153,124 @@ export const networkCommands: Record<string, CommandFunction> = {
       `> Session active. Type "disconnect" to close.`,
       "",
     ];
+
+    addSession({
+      targetIP: finalTarget,
+      startTime: Date.now(),
+      dataSize,
+      accessLevel: "ADMIN",
+    });
+
     return steps;
+  },
+
+  disconnect: (args) => {
+    const target = args && args.length > 0 ? args[0] : null;
+    const sessions = getActiveSessions();
+
+    if (sessions.length === 0) {
+      return [
+        "> No active sessions found.",
+        "> Use 'hack <target>' to establish a connection.",
+        "",
+      ];
+    }
+
+    if (target) {
+      if (target.toLowerCase() === "all") {
+        const count = sessions.length;
+        clearAllSessions();
+        return [
+          `> Disconnecting from all sessions...`,
+          `> ${count} connection(s) closed.`,
+          "> All sessions terminated.",
+          "",
+        ];
+      }
+
+      const removed = removeSession(target);
+      if (removed) {
+        return [
+          `> Disconnecting from ${target}...`,
+          "> Connection closed.",
+          "> Session terminated.",
+          "",
+        ];
+      } else {
+        return [
+          `> No active session found for ${target}.`,
+          "> Use 'sessions' to view active connections.",
+          "",
+        ];
+      }
+    } else {
+      if (sessions.length === 1) {
+        const session = sessions[0];
+        removeSession(session.targetIP);
+        return [
+          `> Disconnecting from ${session.targetIP}...`,
+          "> Connection closed.",
+          "> Session terminated.",
+          "",
+        ];
+      } else {
+        return [
+          "> Multiple active sessions found:",
+          "",
+          ...sessions.map((s) => `>   ${s.targetIP}`),
+          "",
+          "> Specify target: disconnect <target>",
+          "> Or use: disconnect all",
+          "",
+        ];
+      }
+    }
+  },
+
+  sessions: () => {
+    const sessions = getActiveSessions();
+
+    if (sessions.length === 0) {
+      return [
+        "> No active sessions.",
+        "> Use 'hack <target>' to establish a connection.",
+        "",
+      ];
+    }
+
+    const result = [
+      "ACTIVE HACK SESSIONS:",
+      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      "",
+    ];
+
+    for (let i = 0; i < sessions.length; i++) {
+      const session = sessions[i];
+      const duration = Math.floor((Date.now() - session.startTime) / 1000);
+      const minutes = Math.floor(duration / 60);
+      const seconds = duration % 60;
+      const timeStr = minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+
+      result.push(`  [SESSION ${i + 1}]`);
+      result.push(`  Target: ${session.targetIP}`);
+      result.push(`  Access Level: ${session.accessLevel}`);
+      result.push(`  Data Extracted: ${session.dataSize} KB`);
+      result.push(`  Duration: ${timeStr}`);
+
+      if (i < sessions.length - 1) {
+        result.push("");
+        result.push("  ───────────────────────────────");
+        result.push("");
+      }
+    }
+
+    result.push("");
+    result.push("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    result.push("");
+    result.push("> Use 'disconnect <target>' to close a session.");
+    result.push("");
+
+    return result;
   },
 
   scan: async () => {
@@ -196,6 +330,22 @@ export const networkCommands: Record<string, CommandFunction> = {
       return ["Usage: connect <target>", "Example: connect 192.168.1.42", ""];
     }
     const target = args[0];
+
+    if (hasActiveSession(target)) {
+      return [
+        `> Already connected to ${target}.`,
+        "> Use 'disconnect' to close the connection first.",
+        "",
+      ];
+    }
+
+    addSession({
+      targetIP: target,
+      startTime: Date.now(),
+      dataSize: 0,
+      accessLevel: "GUEST",
+    });
+
     return [
       `> Connecting to ${target}...`,
       "> Establishing secure connection...",

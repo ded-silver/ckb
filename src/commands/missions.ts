@@ -113,7 +113,7 @@ export const missionsCommands: Record<string, CommandFunction> = {
       for (const missionId of completedMissions) {
         const mission = allMissions.find((m) => m.id === missionId);
         if (mission) {
-          output.push(`[✓] ${mission.title}`);
+          output.push(`[DONE] ${mission.title}`);
         }
       }
       output.push("");

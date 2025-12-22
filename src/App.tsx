@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import MatrixRain from "./components/MatrixRain";
 import Terminal from "./components/Terminal";
+import { VirusEffects } from "./components/VirusEffects";
 import { Theme, TerminalSize, UserInfo } from "./types";
 import { DEFAULT_THEME, THEMES } from "./constants";
+import { getVirusState, VirusState, clearVirusState } from "./utils/virus";
+import { soundGenerator } from "./utils/sounds";
+import { createDestroyOverlay } from "./utils/destroy";
 import "./App.css";
 
 const THEME_STORAGE_KEY = "cyberpunk_theme";
@@ -90,6 +94,9 @@ function App() {
   const [theme, setTheme] = useState<Theme>(loadTheme);
   const [size, setSize] = useState<TerminalSize>(loadSize);
   const [userInfo, setUserInfo] = useState<UserInfo>(loadUserInfo);
+  const [virusState, setVirusState] = useState<VirusState | null>(
+    getVirusState()
+  );
 
   useEffect(() => {
     saveTheme(theme);
@@ -106,6 +113,48 @@ function App() {
   useEffect(() => {
     saveUserInfo(userInfo);
   }, [userInfo]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      try {
+        const saved = localStorage.getItem("cyberpunk_virus_state");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.isInfected && parsed.startTime) {
+            const elapsed = Date.now() - parsed.startTime;
+            const VIRUS_TIMEOUT = 45000; // 45 секунд
+
+            if (
+              elapsed >= VIRUS_TIMEOUT &&
+              parsed.virusType !== "adware" &&
+              parsed.virusType !== "corruption"
+            ) {
+              clearVirusState();
+              setVirusState(null);
+              createDestroyOverlay();
+              return;
+            }
+          }
+        }
+      } catch (e) {}
+
+      const state = getVirusState();
+      setVirusState(state);
+
+      if (
+        state &&
+        state.isInfected &&
+        state.timeRemaining > 0 &&
+        state.virusType !== "adware"
+      ) {
+        if (state.timeRemaining % 1000 < 100) {
+          soundGenerator.playVirusTick();
+        }
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleThemeChange = (newTheme: Theme) => {
     setTheme(newTheme);
@@ -129,6 +178,12 @@ function App() {
         onSizeChange={handleSizeChange}
         userInfo={userInfo}
         onUserInfoChange={handleUserInfoChange}
+      />
+      <VirusEffects
+        isActive={virusState?.isInfected || false}
+        timeRemaining={virusState?.timeRemaining || 0}
+        theme={theme}
+        virusType={virusState?.virusType || "trojan"}
       />
     </div>
   );

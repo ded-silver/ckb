@@ -12,6 +12,16 @@ import {
 import { checkSecretTriggers } from "./secrets";
 import { getCurrentDirectory } from "./filesystem";
 import { getDestroyOutput } from "./destroy";
+import {
+  checkVirusTrigger,
+  setVirusState,
+  getVirusState,
+  getVirusInfectionOutput,
+  checkVirusTimeout,
+  clearVirusState,
+  detectVirusType,
+} from "./virus";
+import { soundGenerator } from "./sounds";
 
 const FILE_READ_COMMANDS = ["cat", "head", "tail", "less"];
 
@@ -28,6 +38,17 @@ export const executeCommand = async (
 
   trackCommandStats(command);
 
+  const virusState = getVirusState();
+  if (virusState?.isInfected) {
+    if (checkVirusTimeout()) {
+      clearVirusState();
+      return {
+        output: getDestroyOutput(),
+        shouldDestroy: true,
+      };
+    }
+  }
+
   if (
     command === "sudo" &&
     args.length >= 3 &&
@@ -38,6 +59,34 @@ export const executeCommand = async (
     return {
       output: getDestroyOutput(),
       shouldDestroy: true,
+    };
+  }
+
+  if (command.startsWith("./") && command.includes("virus_prototype")) {
+    const virusType = detectVirusType(command, args);
+    setVirusState(true, virusType);
+    soundGenerator.playVirusInfection();
+    return {
+      output: getVirusInfectionOutput(virusType),
+      isVirusActive: true,
+    };
+  }
+
+  if (checkVirusTrigger(command, args)) {
+    const virusType = detectVirusType(command, args);
+    setVirusState(true, virusType);
+
+    if (virusType === "corruption") {
+      const { ensureCorruptionDeactivationFile } = await import(
+        "./commandTracking"
+      );
+      ensureCorruptionDeactivationFile();
+    }
+
+    soundGenerator.playVirusInfection();
+    return {
+      output: getVirusInfectionOutput(virusType),
+      isVirusActive: true,
     };
   }
 
@@ -62,6 +111,18 @@ export const executeCommand = async (
   if (!secretDiscovered) {
     secretDiscovered = checkSecretTriggers(command, args);
   }
+
+  try {
+    const contactsModule = await import("./contacts");
+    if (contactsModule.shouldSendLainMessage()) {
+      contactsModule.markLainMessageSent();
+      contactsModule.createLainMessageFile();
+    } else if (command !== "sessions" && command !== "disconnect") {
+      if (contactsModule.isContactsRead()) {
+        contactsModule.incrementCommandsAfterContacts();
+      }
+    }
+  } catch (e) {}
 
   if (command === "whoami" && context.currentUserInfo) {
     missionCompleted = trackCommandForMissions(command);

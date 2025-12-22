@@ -11,6 +11,8 @@ import {
   handleConfigCommand,
   handleSizeCommand,
   handleSuCommand,
+  handleAntivirusCommand,
+  handleCureCommand,
 } from "../commands/special";
 
 export type CommandHandler = (
@@ -75,6 +77,12 @@ const specialHandlers: Record<string, CommandHandler> = {
   crack: (args) => {
     const result = crackCommand(args);
     return Promise.resolve({ output: Array.isArray(result) ? result : [] });
+  },
+  antivirus: (args) => {
+    return Promise.resolve(handleAntivirusCommand(args));
+  },
+  cure: () => {
+    return Promise.resolve(handleCureCommand());
   },
 };
 

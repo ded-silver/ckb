@@ -1,0 +1,1426 @@
+.virus-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  background: transparent;
+  transition: opacity 0.1s;
+}
+
+.virus-overlay.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 0, 0, 0.1) 0px,
+    rgba(0, 255, 0, 0.1) 2px,
+    rgba(255, 0, 0, 0.1) 4px
+  );
+  animation: glitch 0.1s infinite;
+}
+
+.virus-overlay.corruption-active {
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.05) 0px,
+    rgba(0, 0, 255, 0.05) 1px,
+    rgba(255, 0, 0, 0.05) 2px
+  );
+}
+
+.virus-shake {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.virus-shake.shake-active {
+  animation: shake 0.2s;
+}
+
+.virus-warning {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.95);
+  border: 3px solid #ff003c;
+  padding: 30px 40px;
+  font-family: "Courier New", monospace;
+  color: #ff003c;
+  text-align: center;
+  box-shadow: 0 0 40px #ff003c, inset 0 0 20px rgba(255, 0, 60, 0.3);
+  border-radius: 4px;
+  min-width: 400px;
+}
+
+.virus-timer {
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ff003c, 0 0 20px #ff003c;
+  animation: pulse 1s infinite;
+  line-height: 1.6;
+}
+
+.virus-time {
+  display: block;
+  font-size: 32px;
+  margin: 15px 0;
+  color: #ff003c;
+  text-shadow: 0 0 15px #ff003c;
+  animation: blink 1s infinite;
+}
+
+.virus-command {
+  display: block;
+  font-size: 18px;
+  margin-top: 15px;
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+  font-family: "Courier New", monospace;
+}
+
+.virus-type-label {
+  display: block;
+  font-size: 14px;
+  margin-top: 10px;
+  font-family: "Courier New", monospace;
+  opacity: 0.8;
+}
+
+.virus-type-trojan .virus-overlay.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 0, 60, 0.15) 0px,
+    rgba(0, 255, 0, 0.1) 2px,
+    rgba(255, 0, 60, 0.15) 4px
+  );
+}
+
+.virus-type-honeypot .virus-overlay.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 165, 0, 0.15) 0px,
+    rgba(255, 200, 0, 0.1) 2px,
+    rgba(255, 165, 0, 0.15) 4px
+  );
+}
+
+.virus-type-prototype .virus-overlay.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 255, 0.15) 0px,
+    rgba(255, 0, 255, 0.1) 2px,
+    rgba(0, 255, 255, 0.15) 4px
+  );
+}
+
+/* Цвета для honeypot */
+.virus-type-honeypot .virus-warning {
+  border-color: #ffaa00 !important;
+  box-shadow: 0 0 40px #ffaa00, inset 0 0 20px rgba(255, 170, 0, 0.3) !important;
+}
+
+.virus-type-honeypot .virus-timer {
+  color: #ffaa00 !important;
+  text-shadow: 0 0 10px #ffaa00, 0 0 20px #ffaa00 !important;
+}
+
+.virus-type-honeypot .virus-time {
+  color: #ffaa00 !important;
+  text-shadow: 0 0 15px #ffaa00 !important;
+}
+
+.virus-type-honeypot .virus-command {
+  color: #ffcc00 !important;
+  text-shadow: 0 0 10px #ffcc00 !important;
+}
+
+.virus-type-honeypot .virus-type-label {
+  color: #ffaa00 !important;
+  text-shadow: 0 0 5px #ffaa00 !important;
+}
+
+/* Цвета для prototype */
+.virus-type-prototype .virus-warning {
+  border-color: #00ffff !important;
+  box-shadow: 0 0 40px #00ffff, inset 0 0 20px rgba(0, 255, 255, 0.3) !important;
+}
+
+.virus-type-prototype .virus-timer {
+  color: #00ffff !important;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff !important;
+}
+
+.virus-type-prototype .virus-time {
+  color: #00ffff !important;
+  text-shadow: 0 0 15px #00ffff !important;
+}
+
+.virus-type-prototype .virus-command {
+  color: #ff00ff !important;
+  text-shadow: 0 0 10px #ff00ff !important;
+}
+
+.virus-type-prototype .virus-type-label {
+  color: #00ffff !important;
+  text-shadow: 0 0 5px #00ffff !important;
+}
+
+@keyframes glitch {
+  0%,
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    filter: hue-rotate(180deg);
+  }
+  60% {
+    transform: translate(2px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate(-5px, -5px) rotate(-1deg);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate(5px, 5px) rotate(1deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Визуальные эффекты для разных типов вирусов */
+
+/* Honeypot: плавные волны */
+.virus-overlay.virus-type-honeypot.wave-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 170, 0, 0.1) 0px,
+    rgba(255, 200, 0, 0.05) 50px,
+    rgba(255, 170, 0, 0.1) 100px
+  );
+  animation: wave 2s ease-in-out infinite;
+}
+
+.virus-overlay.virus-type-honeypot.pulse-active {
+  animation: pulse-overlay 1.5s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes pulse-overlay {
+  0%,
+  100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
+/* Prototype: хаотичные эффекты */
+.virus-overlay.virus-type-prototype.chaos-active {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 255, 255, 0.2) 0px,
+    rgba(255, 0, 255, 0.1) 10px,
+    rgba(0, 255, 255, 0.2) 20px,
+    rgba(255, 0, 255, 0.1) 30px
+  );
+  animation: chaos 0.3s infinite;
+}
+
+@keyframes chaos {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    transform: translate(-5px, 5px) rotate(2deg);
+    filter: hue-rotate(90deg);
+  }
+  50% {
+    transform: translate(5px, -5px) rotate(-2deg);
+    filter: hue-rotate(180deg);
+  }
+  75% {
+    transform: translate(-5px, -5px) rotate(1deg);
+    filter: hue-rotate(270deg);
+  }
+}
+
+/* Adware: мерцающие эффекты */
+.virus-overlay.virus-type-adware.pulse-active {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 0, 255, 0.15) 0px,
+    rgba(255, 100, 255, 0.1) 10px,
+    rgba(255, 0, 255, 0.15) 20px
+  );
+  animation: adware-pulse 1.5s ease-in-out infinite;
+}
+
+/* Corruption вирус - искажение текста */
+.virus-overlay.virus-type-corruption.corruption-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 0, 0, 0.1) 0px,
+    rgba(0, 255, 0, 0.05) 1px,
+    rgba(0, 0, 255, 0.1) 2px,
+    rgba(255, 0, 0, 0.05) 3px
+  );
+  animation: corruption-flicker 0.2s infinite;
+}
+
+.virus-overlay.virus-type-corruption.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 0, 0.2) 0px,
+    rgba(255, 0, 255, 0.1) 2px,
+    rgba(0, 255, 255, 0.2) 4px
+  );
+  animation: corruption-glitch 0.15s infinite;
+}
+
+@keyframes corruption-flicker {
+  0%,
+  100% {
+    opacity: 0.1;
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    opacity: 0.2;
+    filter: hue-rotate(90deg);
+  }
+  50% {
+    opacity: 0.15;
+    filter: hue-rotate(180deg);
+  }
+  75% {
+    opacity: 0.2;
+    filter: hue-rotate(270deg);
+  }
+}
+
+@keyframes corruption-glitch {
+  0%,
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  20% {
+    transform: translate(-1px, 1px);
+    filter: hue-rotate(90deg) brightness(1.2);
+  }
+  40% {
+    transform: translate(1px, -1px);
+    filter: hue-rotate(180deg) brightness(0.8);
+  }
+  60% {
+    transform: translate(-1px, -1px);
+    filter: hue-rotate(270deg) brightness(1.1);
+  }
+  80% {
+    transform: translate(1px, 1px);
+    filter: hue-rotate(360deg) brightness(0.9);
+  }
+}
+
+/* Адаптация adware overlay под темы */
+.virus-overlay.virus-type-adware.theme-2077.pulse-active {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 0, 60, 0.15) 0px,
+    rgba(255, 50, 100, 0.1) 10px,
+    rgba(255, 0, 60, 0.15) 20px
+  );
+}
+
+.virus-overlay.virus-type-adware.theme-matrix.pulse-active {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 255, 0, 0.15) 0px,
+    rgba(0, 200, 0, 0.1) 10px,
+    rgba(0, 255, 0, 0.15) 20px
+  );
+}
+
+.virus-overlay.virus-type-adware.theme-amber.pulse-active {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 170, 0, 0.15) 0px,
+    rgba(255, 200, 0, 0.1) 10px,
+    rgba(255, 170, 0, 0.15) 20px
+  );
+}
+
+.virus-overlay.virus-type-adware.theme-retro.pulse-active {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 0, 255, 0.15) 0px,
+    rgba(0, 255, 255, 0.1) 10px,
+    rgba(255, 0, 255, 0.15) 20px
+  );
+}
+
+.virus-overlay.virus-type-adware.theme-anime.pulse-active {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 105, 180, 0.15) 0px,
+    rgba(255, 182, 193, 0.1) 10px,
+    rgba(255, 105, 180, 0.15) 20px
+  );
+}
+
+.virus-overlay.virus-type-adware.theme-dolbaeb.pulse-active {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 0px,
+    rgba(200, 200, 200, 0.1) 10px,
+    rgba(255, 255, 255, 0.15) 20px
+  );
+}
+
+.virus-overlay.virus-type-adware.theme-win95.pulse-active {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(128, 128, 128, 0.1) 10px,
+    rgba(0, 0, 0, 0.1) 20px
+  );
+}
+
+@keyframes adware-pulse {
+  0%,
+  100% {
+    opacity: 0.1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.25;
+    filter: brightness(1.5);
+  }
+}
+
+/* Цвета для corruption - базовые (по умолчанию) */
+.virus-type-corruption .virus-warning {
+  border-color: #ffff00;
+  box-shadow: 0 0 40px #ffff00, inset 0 0 20px rgba(255, 255, 0, 0.3);
+}
+
+.virus-type-corruption .virus-timer {
+  color: #ffff00;
+  text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
+}
+
+.virus-type-corruption .virus-time {
+  color: #ffff00;
+  text-shadow: 0 0 15px #ffff00;
+}
+
+.virus-type-corruption .virus-command {
+  color: #ffaa00;
+  text-shadow: 0 0 10px #ffaa00;
+}
+
+.virus-type-corruption .virus-type-label {
+  color: #ffff00;
+  text-shadow: 0 0 5px #ffff00;
+}
+
+/* Цвета для adware - базовые (по умолчанию) */
+.virus-type-adware .virus-warning {
+  border-color: #ff00ff;
+  box-shadow: 0 0 40px #ff00ff, inset 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.virus-type-adware .virus-timer {
+  color: #ff00ff;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+}
+
+.virus-type-adware .virus-time {
+  color: #ff00ff;
+  text-shadow: 0 0 15px #ff00ff;
+}
+
+.virus-type-adware .virus-command {
+  color: #ff88ff;
+  text-shadow: 0 0 10px #ff88ff;
+}
+
+.virus-type-adware .virus-type-label {
+  color: #ff00ff;
+  text-shadow: 0 0 5px #ff00ff;
+}
+
+/* Адаптация adware warning под темы */
+.virus-type-adware.theme-2077 .virus-warning {
+  border-color: #ff003c;
+  box-shadow: 0 0 40px #ff003c, inset 0 0 20px rgba(255, 0, 60, 0.3);
+}
+
+.virus-type-adware.theme-2077 .virus-timer,
+.virus-type-adware.theme-2077 .virus-time,
+.virus-type-adware.theme-2077 .virus-type-label {
+  color: #ff003c;
+  text-shadow: 0 0 10px #ff003c, 0 0 20px #ff003c;
+}
+
+.virus-type-adware.theme-2077 .virus-command {
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.virus-type-adware.theme-matrix .virus-warning {
+  border-color: #00ff00;
+  box-shadow: 0 0 40px #00ff00, inset 0 0 20px rgba(0, 255, 0, 0.3);
+}
+
+.virus-type-adware.theme-matrix .virus-timer,
+.virus-type-adware.theme-matrix .virus-time,
+.virus-type-adware.theme-matrix .virus-command,
+.virus-type-adware.theme-matrix .virus-type-label {
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+}
+
+.virus-type-adware.theme-amber .virus-warning {
+  border-color: #ffaa00;
+  box-shadow: 0 0 40px #ffaa00, inset 0 0 20px rgba(255, 170, 0, 0.3);
+}
+
+.virus-type-adware.theme-amber .virus-timer,
+.virus-type-adware.theme-amber .virus-time,
+.virus-type-adware.theme-amber .virus-command,
+.virus-type-adware.theme-amber .virus-type-label {
+  color: #ffaa00;
+  text-shadow: 0 0 10px #ffaa00, 0 0 20px #ffaa00;
+}
+
+.virus-type-adware.theme-retro .virus-warning {
+  border-color: #ff00ff;
+  box-shadow: 0 0 40px #ff00ff, inset 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.virus-type-adware.theme-retro .virus-timer,
+.virus-type-adware.theme-retro .virus-time,
+.virus-type-adware.theme-retro .virus-type-label {
+  color: #ff00ff;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+}
+
+.virus-type-adware.theme-retro .virus-command {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.virus-type-adware.theme-anime .virus-warning {
+  border-color: #ff69b4;
+  box-shadow: 0 0 40px #ff69b4, inset 0 0 20px rgba(255, 105, 180, 0.3);
+}
+
+.virus-type-adware.theme-anime .virus-timer,
+.virus-type-adware.theme-anime .virus-time,
+.virus-type-adware.theme-anime .virus-type-label {
+  color: #ff69b4;
+  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+}
+
+.virus-type-adware.theme-anime .virus-command {
+  color: #ffb6c1;
+  text-shadow: 0 0 10px #ffb6c1;
+}
+
+.virus-type-adware.theme-dolbaeb .virus-warning {
+  border-color: #ffffff;
+  box-shadow: 0 0 40px #ffffff, inset 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.virus-type-adware.theme-dolbaeb .virus-timer,
+.virus-type-adware.theme-dolbaeb .virus-time,
+.virus-type-adware.theme-dolbaeb .virus-command,
+.virus-type-adware.theme-dolbaeb .virus-type-label {
+  color: #ffffff;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+}
+
+.virus-type-adware.theme-win95 .virus-warning {
+  border-color: #808080;
+  box-shadow: 0 0 20px #808080, inset 0 0 10px rgba(128, 128, 128, 0.3);
+  border-width: 3px;
+  border-style: outset;
+}
+
+.virus-type-adware.theme-win95 .virus-timer,
+.virus-type-adware.theme-win95 .virus-time,
+.virus-type-adware.theme-win95 .virus-command,
+.virus-type-adware.theme-win95 .virus-type-label {
+  color: #000000;
+  text-shadow: 1px 1px 0px #ffffff;
+}
+
+/* Рекламные баннеры для adware */
+.adware-banner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  animation: adware-banner-popup 0.3s ease-out;
+  pointer-events: none;
+}
+
+.adware-banner-0 {
+  top: 20%;
+  left: 50%;
+}
+
+.adware-banner-1 {
+  top: 50%;
+  left: 20%;
+}
+
+.adware-banner-2 {
+  top: 70%;
+  left: 50%;
+}
+
+.adware-banner-3 {
+  top: 50%;
+  left: 80%;
+}
+
+.adware-banner-4 {
+  top: 30%;
+  left: 30%;
+}
+
+.adware-banner-5 {
+  top: 60%;
+  left: 70%;
+}
+
+.adware-banner-6 {
+  top: 15%;
+  left: 70%;
+}
+
+.adware-banner-7 {
+  top: 80%;
+  left: 25%;
+}
+
+.adware-banner-8 {
+  top: 40%;
+  left: 75%;
+}
+
+.adware-banner-9 {
+  top: 65%;
+  left: 15%;
+}
+
+.adware-banner-10 {
+  top: 25%;
+  left: 15%;
+}
+
+.adware-banner-11 {
+  top: 75%;
+  left: 65%;
+}
+
+.adware-banner-4 {
+  top: 30%;
+  left: 30%;
+}
+
+.adware-banner-5 {
+  top: 60%;
+  left: 70%;
+}
+
+.adware-banner-6 {
+  top: 15%;
+  left: 70%;
+}
+
+.adware-banner-7 {
+  top: 80%;
+  left: 25%;
+}
+
+.adware-banner-8 {
+  top: 40%;
+  left: 75%;
+}
+
+.adware-banner-9 {
+  top: 65%;
+  left: 15%;
+}
+
+.adware-banner-10 {
+  top: 25%;
+  left: 15%;
+}
+
+.adware-banner-11 {
+  top: 75%;
+  left: 65%;
+}
+
+.adware-banner-1 {
+  top: 50%;
+  left: 20%;
+}
+
+.adware-banner-2 {
+  top: 70%;
+  left: 50%;
+}
+
+.adware-banner-3 {
+  top: 50%;
+  left: 80%;
+}
+
+.adware-banner-0 {
+  top: 20%;
+  left: 50%;
+}
+
+.adware-banner-1 {
+  top: 50%;
+  left: 20%;
+}
+
+.adware-banner-2 {
+  top: 70%;
+  left: 50%;
+}
+
+.adware-banner-3 {
+  top: 50%;
+  left: 80%;
+}
+
+.adware-banner-4 {
+  top: 30%;
+  left: 30%;
+}
+
+.adware-banner-5 {
+  top: 60%;
+  left: 70%;
+}
+
+.adware-banner-6 {
+  top: 15%;
+  left: 70%;
+}
+
+.adware-banner-7 {
+  top: 80%;
+  left: 25%;
+}
+
+.adware-banner-8 {
+  top: 40%;
+  left: 75%;
+}
+
+.adware-banner-9 {
+  top: 65%;
+  left: 15%;
+}
+
+.adware-banner-10 {
+  top: 25%;
+  left: 15%;
+}
+
+.adware-banner-11 {
+  top: 75%;
+  left: 65%;
+}
+
+.adware-banner-content {
+  background: linear-gradient(135deg, #ff00ff 0%, #ff0088 50%, #ff00ff 100%);
+  border: 3px solid #ffffff;
+  border-radius: 10px;
+  padding: 20px 40px;
+  box-shadow: 0 0 50px #ff00ff, 0 0 100px #ff00ff,
+    inset 0 0 20px rgba(255, 255, 255, 0.3);
+  position: relative;
+  min-width: 300px;
+  text-align: center;
+  animation: adware-banner-pulse 0.5s ease-in-out infinite;
+}
+
+.adware-banner-subtitle {
+  font-size: 14px;
+  color: #ffff00;
+  text-shadow: 0 0 10px #ffff00;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.adware-banner-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ff00ff;
+  margin-bottom: 10px;
+  animation: adware-banner-blink 1s ease-in-out infinite;
+}
+
+.adware-banner-text {
+  font-size: 18px;
+  color: #ffff00;
+  text-shadow: 0 0 10px #ffff00, 0 0 20px #ff00ff;
+  font-weight: bold;
+}
+
+.adware-banner-subtitle {
+  font-size: 14px;
+  color: #ffff00;
+  text-shadow: 0 0 10px #ffff00;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+/* Адаптация subtitle для разных тем */
+.theme-2077 .adware-banner-subtitle {
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.theme-matrix .adware-banner-subtitle {
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.theme-amber .adware-banner-subtitle {
+  color: #ffaa00;
+  text-shadow: 0 0 10px #ffaa00;
+}
+
+.theme-retro .adware-banner-subtitle {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.theme-anime .adware-banner-subtitle {
+  color: #ffb6c1;
+  text-shadow: 0 0 10px #ffb6c1;
+}
+
+.theme-dolbaeb .adware-banner-subtitle {
+  color: #ffffff;
+  text-shadow: 0 0 10px #ffffff;
+}
+
+.theme-win95 .adware-banner-subtitle {
+  color: #000000;
+  text-shadow: 1px 1px 0px #ffffff;
+}
+
+.adware-banner-close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+/* Адаптация кнопки закрытия для разных тем */
+.theme-matrix .adware-banner-close,
+.theme-amber .adware-banner-close,
+.theme-dolbaeb .adware-banner-close,
+.theme-win95 .adware-banner-close {
+  color: #000000;
+}
+
+@keyframes adware-banner-popup {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes adware-banner-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 50px #ff00ff, 0 0 100px #ff00ff,
+      inset 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 80px #ff00ff, 0 0 150px #ff00ff,
+      inset 0 0 30px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes adware-banner-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Маленькие рекламные баннеры в углах */
+.adware-banner-corner {
+  position: fixed;
+  z-index: 9999;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ff00ff 0%, #ff0088 100%);
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px #ff00ff, inset 0 0 10px rgba(255, 255, 255, 0.3);
+  animation: adware-corner-pulse 1s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.adware-banner-corner-tl {
+  top: 10px;
+  left: 10px;
+}
+
+.adware-banner-corner-tr {
+  top: 10px;
+  right: 10px;
+}
+
+.adware-banner-corner-bl {
+  bottom: 10px;
+  left: 10px;
+}
+
+.adware-banner-corner-br {
+  bottom: 10px;
+  right: 10px;
+}
+
+.adware-banner-corner-text {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ff00ff;
+  animation: adware-corner-blink 0.8s ease-in-out infinite;
+}
+
+@keyframes adware-corner-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes adware-corner-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Постоянные боковые баннеры */
+.adware-banner-side {
+  position: fixed;
+  z-index: 9998;
+  pointer-events: none;
+  animation: adware-side-slide 0.5s ease-out;
+}
+
+.adware-banner-side-left {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center;
+}
+
+.adware-banner-side-right {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center;
+  animation: adware-side-slide-right 0.5s ease-out;
+}
+
+.adware-banner-side-content {
+  background: linear-gradient(135deg, #ff00ff 0%, #ff0088 100%);
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  padding: 10px 30px;
+  box-shadow: 0 0 30px #ff00ff, inset 0 0 10px rgba(255, 255, 255, 0.3);
+  animation: adware-side-pulse 2s ease-in-out infinite;
+}
+
+.adware-banner-side-text {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ff00ff;
+  white-space: nowrap;
+  animation: adware-side-blink 1.5s ease-in-out infinite;
+}
+
+/* Адаптация adware баннеров под темы - 2077 */
+.theme-2077 .adware-banner-content,
+.theme-2077 .adware-banner-corner,
+.theme-2077 .adware-banner-side-content {
+  background: linear-gradient(135deg, #ff003c 0%, #ff0066 100%);
+  border-color: #ff003c;
+  box-shadow: 0 0 30px #ff003c, inset 0 0 10px rgba(255, 0, 60, 0.3);
+}
+
+.theme-2077 .adware-banner-title,
+.theme-2077 .adware-banner-text,
+.theme-2077 .adware-banner-corner-text,
+.theme-2077 .adware-banner-side-text {
+  color: #ffffff;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ff003c;
+}
+
+/* Адаптация adware баннеров под темы - Matrix */
+.theme-matrix .adware-banner-content,
+.theme-matrix .adware-banner-corner,
+.theme-matrix .adware-banner-side-content {
+  background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+  border-color: #00ff00;
+  box-shadow: 0 0 30px #00ff00, inset 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.theme-matrix .adware-banner-title,
+.theme-matrix .adware-banner-text,
+.theme-matrix .adware-banner-corner-text,
+.theme-matrix .adware-banner-side-text {
+  color: #000000;
+  text-shadow: 0 0 10px #000000, 0 0 20px #00ff00;
+}
+
+/* Адаптация adware баннеров под темы - Amber */
+.theme-amber .adware-banner-content,
+.theme-amber .adware-banner-corner,
+.theme-amber .adware-banner-side-content {
+  background: linear-gradient(135deg, #ffaa00 0%, #ff8800 100%);
+  border-color: #ffaa00;
+  box-shadow: 0 0 30px #ffaa00, inset 0 0 10px rgba(255, 170, 0, 0.3);
+}
+
+.theme-amber .adware-banner-title,
+.theme-amber .adware-banner-text,
+.theme-amber .adware-banner-corner-text,
+.theme-amber .adware-banner-side-text {
+  color: #000000;
+  text-shadow: 0 0 10px #000000, 0 0 20px #ffaa00;
+}
+
+/* Адаптация adware баннеров под темы - Retro */
+.theme-retro .adware-banner-content,
+.theme-retro .adware-banner-corner,
+.theme-retro .adware-banner-side-content {
+  background: linear-gradient(135deg, #ff00ff 0%, #ff0088 100%);
+  border-color: #00ffff;
+  box-shadow: 0 0 30px #ff00ff, inset 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.theme-retro .adware-banner-title,
+.theme-retro .adware-banner-text,
+.theme-retro .adware-banner-corner-text,
+.theme-retro .adware-banner-side-text {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+}
+
+/* Адаптация adware баннеров под темы - Anime */
+.theme-anime .adware-banner-content,
+.theme-anime .adware-banner-corner,
+.theme-anime .adware-banner-side-content {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  border-color: #ffb6c1;
+  box-shadow: 0 0 30px #ff69b4, inset 0 0 10px rgba(255, 182, 193, 0.3);
+}
+
+.theme-anime .adware-banner-title,
+.theme-anime .adware-banner-text,
+.theme-anime .adware-banner-corner-text,
+.theme-anime .adware-banner-side-text {
+  color: #ffffff;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ff69b4;
+}
+
+/* Адаптация adware баннеров под темы - Dolbaeb */
+.theme-dolbaeb .adware-banner-content,
+.theme-dolbaeb .adware-banner-corner,
+.theme-dolbaeb .adware-banner-side-content {
+  background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+  border-color: #ffffff;
+  box-shadow: 0 0 30px #ffffff, inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.theme-dolbaeb .adware-banner-title,
+.theme-dolbaeb .adware-banner-text,
+.theme-dolbaeb .adware-banner-corner-text,
+.theme-dolbaeb .adware-banner-side-text {
+  color: #000000;
+  text-shadow: 0 0 10px #000000, 0 0 20px #ffffff;
+}
+
+/* Адаптация adware баннеров под темы - Win95 */
+.theme-win95 .adware-banner-content,
+.theme-win95 .adware-banner-corner,
+.theme-win95 .adware-banner-side-content {
+  background: linear-gradient(135deg, #c0c0c0 0%, #808080 100%);
+  border-color: #000000;
+  box-shadow: 0 0 20px #808080, inset 0 0 10px rgba(0, 0, 0, 0.2);
+  border-width: 2px;
+  border-style: outset;
+}
+
+.theme-win95 .adware-banner-title,
+.theme-win95 .adware-banner-text,
+.theme-win95 .adware-banner-corner-text,
+.theme-win95 .adware-banner-side-text {
+  color: #000000;
+  text-shadow: 1px 1px 0px #ffffff;
+  font-weight: bold;
+}
+
+@keyframes adware-side-slide {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) rotate(-90deg) translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) rotate(-90deg) translateX(0);
+  }
+}
+
+@keyframes adware-side-slide-right {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) rotate(90deg) translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) rotate(90deg) translateX(0);
+  }
+}
+
+@keyframes adware-side-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 30px #ff00ff, inset 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 50px #ff00ff, inset 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes adware-side-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.virus-overlay.theme-2077.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 0, 60, 0.1) 0px,
+    rgba(0, 255, 0, 0.1) 2px,
+    rgba(255, 0, 60, 0.1) 4px
+  );
+}
+
+.virus-overlay.theme-matrix.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 0, 0.1) 0px,
+    rgba(0, 200, 0, 0.1) 2px,
+    rgba(0, 255, 0, 0.1) 4px
+  );
+}
+
+.virus-overlay.theme-amber.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 170, 0, 0.1) 0px,
+    rgba(255, 200, 0, 0.1) 2px,
+    rgba(255, 170, 0, 0.1) 4px
+  );
+}
+
+.virus-overlay.theme-retro.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 0, 255, 0.1) 0px,
+    rgba(0, 255, 255, 0.1) 2px,
+    rgba(255, 0, 255, 0.1) 4px
+  );
+}
+
+.virus-overlay.theme-anime.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 105, 180, 0.1) 0px,
+    rgba(255, 182, 193, 0.1) 2px,
+    rgba(255, 105, 180, 0.1) 4px
+  );
+}
+
+.virus-overlay.theme-dolbaeb.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.1) 0px,
+    rgba(200, 200, 200, 0.1) 2px,
+    rgba(255, 255, 255, 0.1) 4px
+  );
+}
+
+.virus-overlay.theme-win95.glitch-active {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(128, 128, 128, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+}
+
+/* Адаптация для разных тем - Warning Box */
+.virus-warning.theme-2077 {
+  border-color: #ff003c;
+  box-shadow: 0 0 40px #ff003c, inset 0 0 20px rgba(255, 0, 60, 0.3);
+  color: #ff003c;
+}
+
+.virus-timer.theme-2077 {
+  text-shadow: 0 0 10px #ff003c, 0 0 20px #ff003c;
+  color: #ff003c;
+}
+
+.virus-time.theme-2077 {
+  color: #ff003c;
+  text-shadow: 0 0 15px #ff003c;
+}
+
+.virus-command.theme-2077 {
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.virus-warning.theme-matrix {
+  border-color: #00ff00;
+  box-shadow: 0 0 40px #00ff00, inset 0 0 20px rgba(0, 255, 0, 0.3);
+  color: #00ff00;
+}
+
+.virus-timer.theme-matrix {
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  color: #00ff00;
+}
+
+.virus-time.theme-matrix {
+  color: #00ff00;
+  text-shadow: 0 0 15px #00ff00;
+}
+
+.virus-command.theme-matrix {
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.virus-warning.theme-amber {
+  border-color: #ffaa00;
+  box-shadow: 0 0 40px #ffaa00, inset 0 0 20px rgba(255, 170, 0, 0.3);
+  color: #ffaa00;
+}
+
+.virus-timer.theme-amber {
+  text-shadow: 0 0 10px #ffaa00, 0 0 20px #ffaa00;
+  color: #ffaa00;
+}
+
+.virus-time.theme-amber {
+  color: #ffaa00;
+  text-shadow: 0 0 15px #ffaa00;
+}
+
+.virus-command.theme-amber {
+  color: #ffaa00;
+  text-shadow: 0 0 10px #ffaa00;
+}
+
+.virus-warning.theme-retro {
+  border-color: #ff00ff;
+  box-shadow: 0 0 40px #ff00ff, inset 0 0 20px rgba(255, 0, 255, 0.3);
+  color: #ff00ff;
+}
+
+.virus-timer.theme-retro {
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  color: #ff00ff;
+}
+
+.virus-time.theme-retro {
+  color: #ff00ff;
+  text-shadow: 0 0 15px #ff00ff;
+}
+
+.virus-command.theme-retro {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.virus-warning.theme-anime {
+  border-color: #ff69b4;
+  box-shadow: 0 0 40px #ff69b4, inset 0 0 20px rgba(255, 105, 180, 0.3);
+  color: #ff69b4;
+}
+
+.virus-timer.theme-anime {
+  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+  color: #ff69b4;
+}
+
+.virus-time.theme-anime {
+  color: #ff69b4;
+  text-shadow: 0 0 15px #ff69b4;
+}
+
+.virus-command.theme-anime {
+  color: #ffb6c1;
+  text-shadow: 0 0 10px #ffb6c1;
+}
+
+.virus-warning.theme-dolbaeb {
+  border-color: #ffffff;
+  box-shadow: 0 0 40px #ffffff, inset 0 0 20px rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.virus-timer.theme-dolbaeb {
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+  color: #ffffff;
+}
+
+.virus-time.theme-dolbaeb {
+  color: #ffffff;
+  text-shadow: 0 0 15px #ffffff;
+}
+
+.virus-command.theme-dolbaeb {
+  color: #cccccc;
+  text-shadow: 0 0 10px #cccccc;
+}
+
+.virus-warning.theme-win95 {
+  border-color: #808080;
+  box-shadow: 0 0 40px #808080, inset 0 0 20px rgba(128, 128, 128, 0.3);
+  color: #808080;
+}
+
+.virus-timer.theme-win95 {
+  text-shadow: 0 0 10px #808080, 0 0 20px #808080;
+  color: #808080;
+}
+
+.virus-time.theme-win95 {
+  color: #808080;
+  text-shadow: 0 0 15px #808080;
+}
+
+.virus-command.theme-win95 {
+  color: #c0c0c0;
+  text-shadow: 0 0 10px #c0c0c0;
+}
