@@ -1,0 +1,1000 @@
+.terminal-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.terminal {
+  width: 800px;
+  max-width: 90vw;
+  height: 600px;
+  max-height: 90vh;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #ff003c;
+  box-shadow: 0 0 20px rgba(255, 0, 60, 0.6),
+    inset 0 0 20px rgba(255, 0, 60, 0.15);
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ff003c;
+  position: relative;
+  transition: all 0.3s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Темы */
+.terminal.theme-2077 {
+  border-color: #ff003c;
+  color: #ff003c;
+  box-shadow: 0 0 20px rgba(255, 0, 60, 0.6),
+    inset 0 0 20px rgba(255, 0, 60, 0.15);
+}
+
+.terminal.theme-dolbaeb {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #000000;
+  color: #000000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.terminal.theme-matrix {
+  border-color: #00ff00;
+  color: #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5), inset 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+.terminal.theme-amber {
+  border-color: #ffaa00;
+  color: #ffaa00;
+  box-shadow: 0 0 20px rgba(255, 170, 0, 0.5),
+    inset 0 0 20px rgba(255, 170, 0, 0.1);
+}
+
+.terminal.theme-anime {
+  background: rgba(255, 240, 245, 0.95);
+  border-color: #ff69b4;
+  color: #ff69b4;
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.6),
+    inset 0 0 30px rgba(255, 182, 193, 0.2), 0 0 60px rgba(255, 192, 203, 0.4);
+}
+
+.terminal.theme-win95 {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  color: #000000;
+  box-shadow: inset -1px -1px 0px #808080, inset 1px 1px 0px #ffffff,
+    2px 2px 0px #000000;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+  font-size: 11px;
+}
+
+.terminal.theme-retro {
+  background: rgba(10, 10, 10, 0.95);
+  border: 2px solid #ff00ff;
+  color: #ff00ff;
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 60px rgba(255, 0, 255, 0.4),
+    inset 0 0 30px rgba(255, 0, 255, 0.2), 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* Глитч эффект */
+.terminal.glitch-active {
+  animation: glitch 0.3s;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    filter: hue-rotate(180deg);
+  }
+  60% {
+    transform: translate(2px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(360deg);
+  }
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+.typing-terminal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* Скроллбар в стиле терминала */
+.terminal::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Скроллбар для разных тем */
+.terminal.theme-2077::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.terminal.theme-2077::-webkit-scrollbar-thumb {
+  background: #ff003c;
+  border: 1px solid #000;
+}
+
+.terminal.theme-2077::-webkit-scrollbar-thumb:hover {
+  background: #cc0029;
+}
+
+.terminal.theme-dolbaeb::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.terminal.theme-dolbaeb::-webkit-scrollbar-thumb {
+  background: #000000;
+  border: 1px solid #ffffff;
+}
+
+.terminal.theme-dolbaeb::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
+
+.terminal.theme-matrix::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.terminal.theme-matrix::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border: 1px solid #000;
+}
+
+.terminal.theme-matrix::-webkit-scrollbar-thumb:hover {
+  background: #00cc00;
+}
+
+.terminal.theme-amber::-webkit-scrollbar-track {
+  background: #1a0f00;
+}
+
+.terminal.theme-amber::-webkit-scrollbar-thumb {
+  background: #ffaa00;
+  border: 1px solid #1a0f00;
+}
+
+.terminal.theme-amber::-webkit-scrollbar-thumb:hover {
+  background: #cc8800;
+}
+
+.terminal.theme-anime::-webkit-scrollbar-track {
+  background: #ffe6f0;
+}
+
+.terminal.theme-anime::-webkit-scrollbar-thumb {
+  background: #ff69b4;
+  border: 1px solid #ffb6c1;
+  border-radius: 5px;
+}
+
+.terminal.theme-anime::-webkit-scrollbar-thumb:hover {
+  background: #ff1493;
+}
+
+.terminal.theme-win95::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px inset #c0c0c0;
+}
+
+.terminal.theme-win95::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 1px outset #c0c0c0;
+  box-shadow: inset -1px -1px 0px #808080, inset 1px 1px 0px #ffffff;
+}
+
+.terminal.theme-win95::-webkit-scrollbar-thumb:hover {
+  background: #d4d0c8;
+}
+
+.terminal.theme-retro::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border: 1px solid #ff00ff;
+}
+
+.terminal.theme-retro::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff00ff, #8000ff);
+  border: 1px solid #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+}
+
+.terminal.theme-retro::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff66ff, #aa00ff);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 1);
+}
+
+.ascii-logo {
+  color: #ff003c;
+  text-align: center;
+  margin-bottom: 20px;
+  white-space: pre;
+  font-size: 12px;
+  line-height: 1.2;
+  text-shadow: 0 0 10px rgba(255, 0, 60, 0.9);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* ASCII логотип для разных тем */
+.terminal.theme-2077 .ascii-logo {
+  color: #ff003c;
+  text-shadow: 0 0 10px rgba(255, 0, 60, 0.9);
+}
+
+.terminal.theme-dolbaeb .ascii-logo {
+  color: #000000;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.terminal.theme-matrix .ascii-logo {
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.9);
+}
+
+.terminal.theme-amber .ascii-logo {
+  color: #ffaa00;
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.9);
+}
+
+.terminal.theme-anime .ascii-logo {
+  color: #ff69b4;
+  text-shadow: 0 0 15px rgba(255, 105, 180, 0.9),
+    0 0 25px rgba(255, 182, 193, 0.6);
+}
+
+.terminal.theme-win95 .ascii-logo {
+  color: #000000;
+  text-shadow: none;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+}
+
+.terminal.theme-retro .ascii-logo {
+  color: #ff00ff;
+  text-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8),
+    0 0 30px rgba(0, 255, 255, 0.6);
+  animation: retroGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes retroGlow {
+  0% {
+    text-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8),
+      0 0 30px rgba(0, 255, 255, 0.6);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(255, 0, 255, 1), 0 0 30px rgba(255, 0, 255, 1),
+      0 0 45px rgba(0, 255, 255, 0.8);
+  }
+}
+
+.terminal-output {
+  margin-bottom: 10px;
+}
+
+.command-history {
+  margin-bottom: 10px;
+}
+
+.command-block {
+  margin-bottom: 8px;
+}
+
+.command-line {
+  color: #ff3366;
+  margin-bottom: 2px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.command-output {
+  margin-left: 0;
+  margin-top: 2px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.prompt {
+  color: #ff003c;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.command-input {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.input-wrapper {
+  flex: 1;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.text-measure {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.terminal.theme-win95 .text-measure {
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+  font-size: 11px;
+}
+
+.input-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ff003c;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  padding: 0;
+  caret-color: transparent;
+}
+
+.input-field::placeholder {
+  color: #003300;
+}
+
+/* Placeholder для разных тем */
+.terminal.theme-2077 .input-field::placeholder {
+  color: rgba(255, 0, 60, 0.3);
+}
+
+.terminal.theme-dolbaeb .input-field::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.terminal.theme-matrix .input-field::placeholder {
+  color: rgba(0, 255, 0, 0.3);
+}
+
+.terminal.theme-amber .input-field::placeholder {
+  color: rgba(255, 170, 0, 0.3);
+}
+
+.terminal.theme-anime .input-field::placeholder {
+  color: rgba(255, 105, 180, 0.4);
+}
+
+.terminal.theme-win95 .input-field::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.terminal.theme-retro .input-field::placeholder {
+  color: rgba(255, 0, 255, 0.4);
+}
+
+.input-field:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.input-cursor {
+  position: absolute;
+  left: 0;
+  background: #ff003c;
+  width: 9px;
+  height: 18px;
+  pointer-events: none;
+  animation: blink 1s step-end infinite;
+  box-shadow: 0 0 8px rgba(255, 0, 60, 1), 0 0 12px rgba(255, 0, 60, 0.7);
+  border: 1px solid #ff003c;
+  transition: left 0.1s ease;
+}
+
+.input-cursor.visible {
+  opacity: 1;
+}
+
+/* Курсор для экрана загрузки */
+.cursor {
+  background: #ff003c;
+  display: inline-block;
+  width: 9px;
+  height: 18px;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+  box-shadow: 0 0 8px rgba(255, 0, 60, 1), 0 0 12px rgba(255, 0, 60, 0.7);
+  border: 1px solid #ff003c;
+}
+
+.cursor.visible {
+  opacity: 1;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* Анимация появления строк */
+.output-line {
+  color: #ff003c;
+  margin-bottom: 2px;
+  text-shadow: 0 0 5px rgba(255, 0, 60, 0.6);
+  animation: typeIn 0.15s ease-out;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* Цветной вывод */
+.output-line.error {
+  color: #ff4444;
+  text-shadow: 0 0 5px rgba(255, 68, 68, 0.8);
+}
+
+.output-line.warning {
+  color: #ffaa00;
+  text-shadow: 0 0 5px rgba(255, 170, 0, 0.8);
+}
+
+.output-line.success {
+  color: #00ff88;
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.8);
+}
+
+.output-line.info {
+  color: #00aaff;
+  text-shadow: 0 0 5px rgba(0, 170, 255, 0.8);
+}
+
+/* Поддержка тем для элементов */
+/* Тема 2077  */
+.terminal.theme-2077 .prompt,
+.terminal.theme-2077 .command-line,
+.terminal.theme-2077 .output-line {
+  color: #ff003c;
+}
+
+.terminal.theme-2077 .input-field {
+  color: #ff003c;
+}
+
+.terminal.theme-2077 .input-cursor {
+  background: #ff003c;
+  border-color: #ff003c;
+  box-shadow: 0 0 8px rgba(255, 0, 60, 1), 0 0 12px rgba(255, 0, 60, 0.7);
+}
+
+.terminal.theme-2077 .progress-bar {
+  border-color: #ff003c;
+}
+
+.terminal.theme-2077 .progress-fill {
+  background: #ff003c;
+  box-shadow: 0 0 10px rgba(255, 0, 60, 0.9);
+}
+
+.terminal.theme-2077 .progress-text {
+  color: #ff003c;
+}
+
+/* Тема dolbaeb */
+.terminal.theme-dolbaeb .prompt,
+.terminal.theme-dolbaeb .command-line,
+.terminal.theme-dolbaeb .output-line {
+  color: #000000;
+}
+
+.terminal.theme-dolbaeb .input-field {
+  color: #000000;
+}
+
+.terminal.theme-dolbaeb .input-cursor {
+  background: #000000;
+  border-color: #000000;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.terminal.theme-dolbaeb .progress-bar {
+  border-color: #000000;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.terminal.theme-dolbaeb .progress-fill {
+  background: #000000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.terminal.theme-dolbaeb .progress-text {
+  color: #000000;
+}
+
+/* Тема matrix  */
+.terminal.theme-matrix .prompt,
+.terminal.theme-matrix .command-line,
+.terminal.theme-matrix .output-line {
+  color: #00ff00;
+}
+
+.terminal.theme-matrix .input-field {
+  color: #00ff00;
+}
+
+.terminal.theme-matrix .input-cursor {
+  background: #00ff00;
+  border-color: #00ff00;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 1), 0 0 12px rgba(0, 255, 0, 0.7);
+}
+
+.terminal.theme-matrix .progress-bar {
+  border-color: #00ff00;
+}
+
+.terminal.theme-matrix .progress-fill {
+  background: #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.9);
+}
+
+.terminal.theme-matrix .progress-text {
+  color: #00ff00;
+}
+
+.terminal.theme-amber .prompt,
+.terminal.theme-amber .command-line,
+.terminal.theme-amber .output-line {
+  color: #ffaa00;
+}
+
+.terminal.theme-amber .input-field {
+  color: #ffaa00;
+}
+
+.terminal.theme-amber .input-cursor {
+  background: #ffaa00;
+  border-color: #ffaa00;
+  box-shadow: 0 0 8px rgba(255, 170, 0, 1), 0 0 12px rgba(255, 170, 0, 0.6);
+}
+
+.terminal.theme-amber .progress-bar {
+  border-color: #ffaa00;
+}
+
+.terminal.theme-amber .progress-fill {
+  background: #ffaa00;
+  box-shadow: 0 0 10px rgba(255, 170, 0, 0.8);
+}
+
+.terminal.theme-amber .progress-text {
+  color: #ffaa00;
+}
+
+/* Тема anime */
+.terminal.theme-anime .prompt,
+.terminal.theme-anime .command-line,
+.terminal.theme-anime .output-line {
+  color: #ff69b4;
+  text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+.terminal.theme-anime .input-field {
+  color: #ff69b4;
+}
+
+.terminal.theme-anime .input-cursor {
+  background: #ff69b4;
+  border-color: #ff69b4;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 1), 0 0 20px rgba(255, 182, 193, 0.8),
+    0 0 30px rgba(255, 192, 203, 0.6);
+  border-radius: 2px;
+}
+
+.terminal.theme-anime .progress-bar {
+  border-color: #ff69b4;
+  background: rgba(255, 182, 193, 0.2);
+  border-radius: 10px;
+}
+
+.terminal.theme-anime .progress-fill {
+  background: linear-gradient(90deg, #ff69b4, #ffb6c1, #ffc0cb);
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.9),
+    0 0 25px rgba(255, 182, 193, 0.6);
+  border-radius: 10px;
+}
+
+.terminal.theme-anime .progress-text {
+  color: #ff69b4;
+}
+
+/* Тема win95 */
+.terminal.theme-win95 .prompt,
+.terminal.theme-win95 .command-line,
+.terminal.theme-win95 .output-line,
+.terminal.theme-win95 .command-output,
+.terminal.theme-win95 .command-block,
+.terminal.theme-win95 .command-history,
+.terminal.theme-win95 .terminal-output {
+  color: #000000;
+  text-shadow: none;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+}
+
+.terminal.theme-win95 .input-field {
+  color: #000000;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+}
+
+.terminal.theme-win95 .input-cursor {
+  background: #000000;
+  border-color: #000000;
+  box-shadow: none;
+  width: 1px;
+  height: 14px;
+}
+
+.terminal.theme-win95 .progress-bar {
+  border: 1px inset #c0c0c0;
+  background: #c0c0c0;
+  box-shadow: inset -1px -1px 0px #808080, inset 1px 1px 0px #ffffff;
+}
+
+.terminal.theme-win95 .progress-fill {
+  background: #000080;
+  box-shadow: none;
+  border: none;
+}
+
+.terminal.theme-win95 .progress-text {
+  color: #000000;
+}
+
+.terminal.theme-win95 .output-line.error {
+  color: #800000;
+  text-shadow: none;
+}
+
+.terminal.theme-win95 .output-line.warning {
+  color: #808000;
+  text-shadow: none;
+}
+
+.terminal.theme-win95 .output-line.success {
+  color: #008000;
+  text-shadow: none;
+}
+
+.terminal.theme-win95 .output-line.info {
+  color: #000080;
+  text-shadow: none;
+}
+
+/* Тема retro */
+.terminal.theme-retro .prompt,
+.terminal.theme-retro .command-line,
+.terminal.theme-retro .output-line,
+.terminal.theme-retro .command-output,
+.terminal.theme-retro .command-block,
+.terminal.theme-retro .command-history,
+.terminal.theme-retro .terminal-output {
+  color: #ff00ff;
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.8), 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.terminal.theme-retro .input-field {
+  color: #ff00ff;
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.8), 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.terminal.theme-retro .input-cursor {
+  background: #ff00ff;
+  border-color: #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8),
+    0 0 30px rgba(0, 255, 255, 0.6);
+  width: 2px;
+  height: 18px;
+}
+
+.terminal.theme-retro .progress-bar {
+  border: 2px solid #ff00ff;
+  background: rgba(10, 10, 10, 0.8);
+  box-shadow: inset 0 0 10px rgba(255, 0, 255, 0.3),
+    0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.terminal.theme-retro .progress-fill {
+  background: linear-gradient(90deg, #ff00ff, #8000ff, #00ffff);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8),
+    inset 0 0 10px rgba(0, 255, 255, 0.5);
+  animation: retroProgress 2s ease-in-out infinite alternate;
+}
+
+@keyframes retroProgress {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8),
+      inset 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 0, 255, 1), 0 0 30px rgba(255, 0, 255, 1),
+      inset 0 0 15px rgba(0, 255, 255, 0.8);
+  }
+}
+
+.terminal.theme-retro .progress-text {
+  color: #ff00ff;
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.8), 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.terminal.theme-retro .output-line.error {
+  color: #ff0080;
+  text-shadow: 0 0 5px rgba(255, 0, 128, 0.8), 0 0 10px rgba(255, 0, 128, 0.5);
+}
+
+.terminal.theme-retro .output-line.warning {
+  color: #ffaa00;
+  text-shadow: 0 0 5px rgba(255, 170, 0, 0.8), 0 0 10px rgba(255, 170, 0, 0.5);
+}
+
+.terminal.theme-retro .output-line.success {
+  color: #00ff80;
+  text-shadow: 0 0 5px rgba(0, 255, 128, 0.8), 0 0 10px rgba(0, 255, 128, 0.5);
+}
+
+.terminal.theme-retro .output-line.info {
+  color: #00ffff;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* Стили для курсора в экране загрузки */
+.typing-terminal .cursor {
+  background: #ff003c;
+  border-color: #ff003c;
+  box-shadow: 0 0 8px rgba(255, 0, 60, 1), 0 0 12px rgba(255, 0, 60, 0.7);
+}
+
+.typing-terminal.theme-2077 .cursor {
+  background: #ff003c;
+  border-color: #ff003c;
+  box-shadow: 0 0 8px rgba(255, 0, 60, 1), 0 0 12px rgba(255, 0, 60, 0.7);
+}
+
+.typing-terminal.theme-dolbaeb .cursor {
+  background: #000000;
+  border-color: #000000;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.typing-terminal.theme-matrix .cursor {
+  background: #00ff00;
+  border-color: #00ff00;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 1), 0 0 12px rgba(0, 255, 0, 0.7);
+}
+
+.typing-terminal.theme-amber .cursor {
+  background: #ffaa00;
+  border-color: #ffaa00;
+  box-shadow: 0 0 8px rgba(255, 170, 0, 1), 0 0 12px rgba(255, 170, 0, 0.6);
+}
+
+.typing-terminal.theme-anime .cursor {
+  background: #ff69b4;
+  border-color: #ff69b4;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 1), 0 0 20px rgba(255, 182, 193, 0.8);
+  border-radius: 2px;
+}
+
+.typing-terminal.theme-win95 .cursor {
+  background: #000000;
+  border-color: #000000;
+  box-shadow: none;
+  width: 1px;
+  height: 14px;
+}
+
+.typing-terminal.theme-retro .cursor {
+  background: #ff00ff;
+  border-color: #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 1), 0 0 20px rgba(255, 0, 255, 0.8),
+    0 0 30px rgba(0, 255, 255, 0.6);
+  width: 2px;
+  height: 18px;
+}
+
+@keyframes typeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Прогресс-бары */
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 20px;
+  background: rgba(255, 0, 60, 0.15);
+  border: 1px solid #ff003c;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #ff003c;
+  box-shadow: 0 0 10px rgba(255, 0, 60, 0.9);
+  transition: width 0.3s ease;
+  animation: progressPulse 1s infinite;
+}
+
+@keyframes progressPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.progress-text {
+  color: #ff003c;
+  font-size: 12px;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* Анимации для команд */
+.command-output.animated {
+  animation: scanLines 2s infinite;
+}
+
+@keyframes scanLines {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.2);
+  }
+}
+
+/* Уведомления */
+.notifications {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notification {
+  background: rgba(0, 0, 0, 0.95);
+  border: 2px solid #ff003c;
+  color: #ff003c;
+  padding: 10px 15px;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  box-shadow: 0 0 15px rgba(255, 0, 60, 0.6);
+  animation: notificationSlideIn 0.3s ease-out,
+    notificationFadeOut 0.3s ease-in 2.7s;
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+.notification.theme-2077 {
+  border-color: #ff003c;
+  color: #ff003c;
+  box-shadow: 0 0 15px rgba(255, 0, 60, 0.6);
+}
+
+.notification.theme-dolbaeb {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: #000000;
+  color: #000000;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.notification.theme-matrix {
+  border-color: #00ff00;
+  color: #00ff00;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+.notification.theme-amber {
+  border-color: #ffaa00;
+  color: #ffaa00;
+  box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
+}
+
+.notification.theme-anime {
+  background: rgba(255, 240, 245, 0.98);
+  border-color: #ff69b4;
+  color: #ff69b4;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.6),
+    0 0 40px rgba(255, 182, 193, 0.4);
+  border-radius: 10px;
+}
+
+.notification.theme-win95 {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  color: #000000;
+  box-shadow: inset -1px -1px 0px #808080, inset 1px 1px 0px #ffffff,
+    2px 2px 0px #000000;
+  font-family: "MS Sans Serif", "MS UI Gothic", sans-serif;
+}
+
+.notification.theme-retro {
+  background: rgba(10, 10, 10, 0.98);
+  border: 2px solid #ff00ff;
+  color: #ff00ff;
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.8), 0 0 40px rgba(255, 0, 255, 0.4),
+    inset 0 0 20px rgba(255, 0, 255, 0.2), 0 0 10px rgba(0, 255, 255, 0.5);
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.8), 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+@keyframes notificationSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes notificationFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}

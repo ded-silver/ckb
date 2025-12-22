@@ -1,0 +1,178 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+/* Тема 2077 */
+.app.theme-2077 {
+  background: #000;
+}
+
+.app.theme-2077::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(255, 0, 60, 0.03) 1px,
+    rgba(255, 0, 60, 0.03) 2px
+  );
+}
+
+.app.theme-2077::after {
+  box-shadow: inset 0 0 200px rgba(255, 0, 60, 0.12);
+}
+
+/* Тема dolbaeb  */
+.app.theme-dolbaeb {
+  background: #ffffff;
+}
+
+.app.theme-dolbaeb::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.015) 1px,
+    rgba(0, 0, 0, 0.015) 2px
+  );
+}
+
+.app.theme-dolbaeb::after {
+  box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.05);
+}
+
+/* Тема matrix */
+.app.theme-matrix {
+  background: #000;
+}
+
+.app.theme-matrix::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 255, 0, 0.03) 1px,
+    rgba(0, 255, 0, 0.03) 2px
+  );
+}
+
+.app.theme-matrix::after {
+  box-shadow: inset 0 0 200px rgba(0, 255, 0, 0.12);
+}
+
+/* Тема amber */
+.app.theme-amber {
+  background: #1a0f00;
+}
+
+.app.theme-amber::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(255, 170, 0, 0.03) 1px,
+    rgba(255, 170, 0, 0.03) 2px
+  );
+}
+
+.app.theme-amber::after {
+  box-shadow: inset 0 0 200px rgba(255, 170, 0, 0.12);
+}
+
+/* Тема anime */
+.app.theme-anime {
+  background: linear-gradient(135deg, #ffe6f0 0%, #ffb6c1 50%, #ffc0cb 100%);
+}
+
+.app.theme-anime::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(255, 105, 180, 0.05) 1px,
+    rgba(255, 105, 180, 0.05) 2px
+  );
+}
+
+.app.theme-anime::after {
+  box-shadow: inset 0 0 200px rgba(255, 182, 193, 0.2);
+}
+
+/* Тема win95 */
+.app.theme-win95 {
+  background: #c0c0c0;
+}
+
+.app.theme-win95::before {
+  background: none;
+  opacity: 0;
+}
+
+.app.theme-win95::after {
+  box-shadow: none;
+}
+
+/* Тема retro */
+.app.theme-retro {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 50%, #0a0a0a 100%);
+}
+
+.app.theme-retro::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(255, 0, 255, 0.08) 1px,
+    rgba(255, 0, 255, 0.08) 2px
+  );
+  opacity: 0.3;
+}
+
+.app.theme-retro::after {
+  box-shadow: inset 0 0 200px rgba(255, 0, 255, 0.15),
+    inset 0 0 100px rgba(0, 255, 255, 0.1), 0 0 50px rgba(255, 0, 255, 0.2);
+}
+
+/* CRT эффект */
+.app::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 2px;
+  background-repeat: repeat-y;
+  pointer-events: none;
+  z-index: 10;
+  animation: scanline 8s linear infinite;
+  opacity: 0.15;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(2px);
+  }
+}
+
+/* Свечение экрана */
+.app::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9;
+  transition: box-shadow 0.3s ease;
+}

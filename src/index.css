@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Courier New", "Consolas", monospace;
+  background: #000;
+  color: #ff003c;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Тема 2077 */
+body.theme-2077 {
+  background: #000;
+  color: #ff003c;
+}
+
+/* Тема dolbaeb */
+body.theme-dolbaeb {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* Тема matrix */
+body.theme-matrix {
+  background: #000;
+  color: #00ff00;
+}
+
+/* Тема amber */
+body.theme-amber {
+  background: #1a0f00;
+  color: #ffaa00;
+}
+
+/* Тема anime */
+body.theme-anime {
+  background: #ffe6f0;
+  color: #ff69b4;
+}
+
+/* Тема win95 */
+body.theme-win95 {
+  background: #c0c0c0;
+  color: #000000;
+  font-family: "MS Sans Serif", "MS UI Gothic", sans-serif;
+}
+
+/* Тема retro */
+body.theme-retro {
+  background: #0a0a0a;
+  color: #ff00ff;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
