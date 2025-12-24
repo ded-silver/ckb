@@ -10,7 +10,6 @@ import {
   getMissionNotification,
 } from "./commandTracking";
 import { checkSecretTriggers } from "./secrets";
-import { getCurrentDirectory } from "./filesystem";
 import { getDestroyOutput } from "./destroy";
 import {
   checkVirusTrigger,
@@ -22,6 +21,8 @@ import {
   detectVirusType,
 } from "./virus";
 import { soundGenerator } from "./sounds";
+import { openMusicPlayer } from "./musicPlayerManager";
+import { getFileSystem, getCurrentDirectory } from "./filesystem";
 
 const FILE_READ_COMMANDS = ["cat", "head", "tail", "less"];
 
@@ -62,13 +63,160 @@ export const executeCommand = async (
     };
   }
 
-  if (command.startsWith("./") && command.includes("virus_prototype")) {
-    const virusType = detectVirusType(command, args);
-    setVirusState(true, virusType);
-    soundGenerator.playVirusInfection();
+  // Обработка запуска приложений
+  if (command === "open" && args.length > 0) {
+    const fileName = args[0];
+
+    // Проверяем различные варианты путей к player.exe
+    if (
+      fileName === "player.exe" ||
+      fileName === "./player.exe" ||
+      fileName === "music/player.exe" ||
+      fileName === "./music/player.exe" ||
+      fileName.endsWith("/player.exe")
+    ) {
+      openMusicPlayer();
+      return {
+        output: ["Opening music player...", ""],
+      };
+    }
+
+    // Проверяем, существует ли файл в файловой системе
+    const currentDir = getCurrentDirectory();
+    const fs = getFileSystem();
+
+    // Разрешаем путь
+    let resolvedPath = fileName;
+    if (!fileName.startsWith("/")) {
+      // Относительный путь
+      const parts = fileName.split("/");
+      resolvedPath = currentDir;
+      for (const part of parts) {
+        if (part === "..") {
+          const pathParts = resolvedPath.split("/").filter((p) => p);
+          if (pathParts.length > 1) {
+            pathParts.pop();
+            resolvedPath = "/" + pathParts.join("/");
+          } else {
+            resolvedPath = "/";
+          }
+        } else if (part === "." || part === "") {
+          continue;
+        } else {
+          resolvedPath =
+            resolvedPath === "/" ? `/${part}` : `${resolvedPath}/${part}`;
+        }
+      }
+    }
+
+    // Проверяем, это .exe файл?
+    if (fs[resolvedPath] && fs[resolvedPath].type === "file") {
+      if (resolvedPath.endsWith(".exe")) {
+        if (resolvedPath.includes("player.exe")) {
+          openMusicPlayer();
+          return {
+            output: ["Opening music player...", ""],
+          };
+        }
+        return {
+          output: [
+            `Executing: ${fileName}`,
+            "This executable is not yet implemented.",
+            "",
+          ],
+        };
+      }
+    }
+
+    // Можно добавить другие приложения позже
     return {
-      output: getVirusInfectionOutput(virusType),
-      isVirusActive: true,
+      output: [`Cannot open: ${fileName}`, "Unknown application", ""],
+      isError: true,
+    };
+  }
+
+  // Обработка запуска через ./
+  if (command.startsWith("./")) {
+    const filePath = command.substring(2); // Убираем ./
+
+    // Проверяем, это player.exe? (различные варианты путей)
+    if (
+      filePath === "player.exe" ||
+      filePath === "music/player.exe" ||
+      filePath.endsWith("/player.exe")
+    ) {
+      openMusicPlayer();
+      return {
+        output: ["Opening music player...", ""],
+      };
+    }
+
+    // Проверяем, это virus_prototype?
+    if (command.includes("virus_prototype")) {
+      const virusType = detectVirusType(command, args);
+      setVirusState(true, virusType);
+      soundGenerator.playVirusInfection();
+      return {
+        output: getVirusInfectionOutput(virusType),
+        isVirusActive: true,
+      };
+    }
+
+    // Разрешаем путь относительно текущей директории
+    const currentDir = getCurrentDirectory();
+    const fs = getFileSystem();
+
+    // Обрабатываем относительный путь
+    const parts = filePath.split("/");
+    let resolvedPath = currentDir;
+    for (const part of parts) {
+      if (part === "..") {
+        const pathParts = resolvedPath.split("/").filter((p) => p);
+        if (pathParts.length > 1) {
+          pathParts.pop();
+          resolvedPath = "/" + pathParts.join("/");
+        } else {
+          resolvedPath = "/";
+        }
+      } else if (part === "." || part === "") {
+        continue;
+      } else {
+        resolvedPath =
+          resolvedPath === "/" ? `/${part}` : `${resolvedPath}/${part}`;
+      }
+    }
+
+    // Проверяем, существует ли файл
+    if (fs[resolvedPath] && fs[resolvedPath].type === "file") {
+      const file = fs[resolvedPath];
+      if (filePath.endsWith(".exe") || resolvedPath.endsWith(".exe")) {
+        // Это исполняемый файл
+        if (
+          filePath.includes("player.exe") ||
+          resolvedPath.includes("player.exe")
+        ) {
+          openMusicPlayer();
+          return {
+            output: ["Opening music player...", ""],
+          };
+        }
+        return {
+          output: [
+            `Executing: ${filePath}`,
+            "This executable is not yet implemented.",
+            "",
+          ],
+        };
+      }
+      // Если это не .exe, просто показываем содержимое
+      return {
+        output: file.content ? file.content.split("\n") : [""],
+      };
+    }
+
+    return {
+      output: [`File not found: ${filePath}`, ""],
+      isError: true,
     };
   }
 

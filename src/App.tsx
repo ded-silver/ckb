@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import MatrixRain from "./components/MatrixRain";
 import Terminal from "./components/Terminal";
 import { VirusEffects } from "./components/VirusEffects";
+import { MusicPlayer } from "./components/MusicPlayer";
 import { Theme, TerminalSize, UserInfo } from "./types";
 import { DEFAULT_THEME, THEMES } from "./constants";
 import { getVirusState, VirusState, clearVirusState } from "./utils/virus";
 import { soundGenerator } from "./utils/sounds";
 import { createDestroyOverlay } from "./utils/destroy";
+import { setOpenPlayerCallback } from "./utils/musicPlayerManager";
 import "./App.css";
 
 const THEME_STORAGE_KEY = "cyberpunk_theme";
@@ -97,6 +99,7 @@ function App() {
   const [virusState, setVirusState] = useState<VirusState | null>(
     getVirusState()
   );
+  const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
 
   useEffect(() => {
     saveTheme(theme);
@@ -113,6 +116,12 @@ function App() {
   useEffect(() => {
     saveUserInfo(userInfo);
   }, [userInfo]);
+
+  // Регистрация callback для открытия плеера
+  useEffect(() => {
+    setOpenPlayerCallback(() => setIsMusicPlayerOpen(true));
+    return () => setOpenPlayerCallback(null);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -185,6 +194,12 @@ function App() {
         theme={theme}
         virusType={virusState?.virusType || "trojan"}
       />
+      {isMusicPlayerOpen && (
+        <MusicPlayer
+          theme={theme}
+          onClose={() => setIsMusicPlayerOpen(false)}
+        />
+      )}
     </div>
   );
 }

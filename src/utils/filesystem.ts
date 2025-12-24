@@ -40,6 +40,31 @@ const defaultFileSystem: Record<string, FileSystemNode> = {
         type: "dir",
         contents: {},
       },
+      music: {
+        type: "dir",
+        contents: {
+          "metadata.json": {
+            type: "file",
+            content:
+              '{\n  "tracks": [\n    {\n      "filename": "mothra.wav",\n      "title": "mothra.wav",\n      "artist": "happyalready",\n      "duration": 56,\n      "format": "wav"\n    },\n    {\n      "filename": "shadowprotocol-darkambientdrone-morbid-mix.ogg",\n      "title": "shadowprotocol-darkambientdrone-morbid-mix.ogg",\n      "artist": "glitchart",\n      "duration": 128,\n      "format": "ogg"\n    }\n  ]\n}',
+          },
+          "mothra.wav": {
+            type: "file",
+            content:
+              "[BINARY AUDIO FILE]\n\nFile: mothra.wav\nFormat: WAV\nArtist: happyalready\nDuration: 56 seconds\n\nThis is a binary audio file.\nUse the music player to play it.\n\nTo play: music open, then 'play mothra.wav'",
+          },
+          "shadowprotocol-darkambientdrone-morbid-mix.ogg": {
+            type: "file",
+            content:
+              "[BINARY AUDIO FILE]\n\nFile: shadowprotocol-darkambientdrone-morbid-mix.ogg\nFormat: OGG\nArtist: glitchart\nDuration: 128 seconds\n\nThis is a binary audio file.\nUse the music player to play it.\n\nTo play: music open, then 'play shadowprotocol-darkambientdrone-morbid-mix.ogg'",
+          },
+          "player.exe": {
+            type: "file",
+            content:
+              "MUSIC PLAYER APPLICATION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n[2077-03-20] Music Player v1.0\n[2077-03-20] Author: Cyberpunk Terminal Team\n[2077-03-20] Classification: MEDIA PLAYER\n\nThis is the music player executable.\n\nTo run:\n  open player.exe\n  or\n  ./music/player.exe\n\nFeatures:\n  - 8-bit music playback\n  - ASCII visualization\n  - Terminal-based interface\n  - Support for OGG and WAV formats\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+          },
+        },
+      },
       logs: {
         type: "dir",
         contents: {
@@ -125,6 +150,51 @@ const defaultFileSystem: Record<string, FileSystemNode> = {
   "/home/user/secrets": {
     type: "dir",
     contents: {},
+  },
+  "/home/user/music": {
+    type: "dir",
+    contents: {
+      "metadata.json": {
+        type: "file",
+        content:
+          '{\n  "tracks": [\n    {\n      "filename": "mothra.wav",\n      "title": "mothra.wav",\n      "artist": "happyalready",\n      "duration": 56,\n      "format": "wav"\n    },\n    {\n      "filename": "shadowprotocol-darkambientdrone-morbid-mix.ogg",\n      "title": "shadowprotocol-darkambientdrone-morbid-mix.ogg",\n      "artist": "glitchart",\n      "duration": 128,\n      "format": "ogg"\n    }\n  ]\n}',
+      },
+      "mothra.wav": {
+        type: "file",
+        content:
+          "[BINARY AUDIO FILE]\n\nFile: mothra.wav\nFormat: WAV\nArtist: happyalready\nDuration: 56 seconds\n\nThis is a binary audio file.\nUse the music player to play it.\n\nTo play: music open, then 'play mothra.wav'",
+      },
+      "shadowprotocol-darkambientdrone-morbid-mix.ogg": {
+        type: "file",
+        content:
+          "[BINARY AUDIO FILE]\n\nFile: shadowprotocol-darkambientdrone-morbid-mix.ogg\nFormat: OGG\nArtist: glitchart\nDuration: 128 seconds\n\nThis is a binary audio file.\nUse the music player to play it.\n\nTo play: music open, then 'play shadowprotocol-darkambientdrone-morbid-mix.ogg'",
+      },
+      "player.exe": {
+        type: "file",
+        content:
+          "MUSIC PLAYER APPLICATION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n[2077-03-20] Music Player v1.0\n[2077-03-20] Author: Cyberpunk Terminal Team\n[2077-03-20] Classification: MEDIA PLAYER\n\nThis is the music player executable.\n\nTo run:\n  open player.exe\n  or\n  ./music/player.exe\n\nFeatures:\n  - 8-bit music playback\n  - ASCII visualization\n  - Terminal-based interface\n  - Support for OGG and WAV formats\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+      },
+    },
+  },
+  "/home/user/music/metadata.json": {
+    type: "file",
+    content:
+      '{\n  "tracks": [\n    {\n      "filename": "mothra.wav",\n      "title": "mothra.wav",\n      "artist": "happyalready",\n      "duration": 56,\n      "format": "wav"\n    },\n    {\n      "filename": "shadowprotocol-darkambientdrone-morbid-mix.ogg",\n      "title": "shadowprotocol-darkambientdrone-morbid-mix.ogg",\n      "artist": "glitchart",\n      "duration": 128,\n      "format": "ogg"\n    }\n  ]\n}',
+  },
+  "/home/user/music/mothra.wav": {
+    type: "file",
+    content:
+      "[BINARY AUDIO FILE]\n\nFile: mothra.wav\nFormat: WAV\nArtist: happyalready\nDuration: 56 seconds\n\nThis is a binary audio file.\nUse the music player to play it.\n\nTo play: music open, then 'play mothra.wav'",
+  },
+  "/home/user/music/shadowprotocol-darkambientdrone-morbid-mix.ogg": {
+    type: "file",
+    content:
+      "[BINARY AUDIO FILE]\n\nFile: shadowprotocol-darkambientdrone-morbid-mix.ogg\nFormat: OGG\nArtist: glitchart\nDuration: 128 seconds\n\nThis is a binary audio file.\nUse the music player to play it.\n\nTo play: music open, then 'play shadowprotocol-darkambientdrone-morbid-mix.ogg'",
+  },
+  "/home/user/music/player.exe": {
+    type: "file",
+    content:
+      "MUSIC PLAYER APPLICATION\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n[2077-03-20] Music Player v1.0\n[2077-03-20] Author: Cyberpunk Terminal Team\n[2077-03-20] Classification: MEDIA PLAYER\n\nThis is the music player executable.\n\nTo run:\n  open player.exe\n  or\n  ./music/player.exe\n\nFeatures:\n  - 8-bit music playback\n  - ASCII visualization\n  - Terminal-based interface\n  - Support for OGG and WAV formats\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
   },
   "/home/user/logs": {
     type: "dir",

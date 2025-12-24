@@ -23,3 +23,17 @@ dist-ssr
 *.sln
 *.sw?
 
+# Audio files
+*.wav
+*.ogg
+*.mp3
+*.flac
+*.m4a
+*.aac
+public/music/*.wav
+public/music/*.ogg
+public/music/*.mp3
+public/music/*.flac
+public/music/*.m4a
+public/music/*.aac
+!public/music/metadata.json

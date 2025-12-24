@@ -1,0 +1,18 @@
+{
+  "tracks": [
+    {
+      "filename": "mothra.wav",
+      "title": "mothra.wav",
+      "artist": "happyalready",
+      "duration": 56,
+      "format": "wav"
+    },
+    {
+      "filename": "shadowprotocol-darkambientdrone-morbid-mix.ogg",
+      "title": "shadowprotocol-darkambientdrone-morbid-mix.ogg",
+      "artist": "glitchart",
+      "duration": 128,
+      "format": "ogg"
+    }
+  ]
+}

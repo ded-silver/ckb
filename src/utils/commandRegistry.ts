@@ -115,3 +115,20 @@ export const getCommandHandler = (command: string): CommandHandler | null => {
 };
 
 export const getAllCommands = () => allCommands;
+
+// Функция для получения обработчика команд с фильтрацией
+export const getFilteredCommandHandler = (
+  allowedCommands: string[]
+): ((command: string) => CommandHandler | null) => {
+  return (command: string) => {
+    const lowerCommand = command.toLowerCase();
+
+    // Проверяем, разрешена ли команда
+    if (!allowedCommands.includes(lowerCommand)) {
+      return null;
+    }
+
+    // Используем существующую логику getCommandHandler
+    return getCommandHandler(lowerCommand);
+  };
+};

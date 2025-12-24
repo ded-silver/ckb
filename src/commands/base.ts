@@ -118,6 +118,10 @@ export const baseCommands: Record<string, (args?: string[]) => string[]> = {
       "  joke              - Random joke",
       "  notify <msg>      - Show notification",
       "",
+      "APPLICATIONS:",
+      "  open <app>        - Open application (e.g., open player.exe)",
+      "  music <command>   - Music player commands",
+      "",
       "TERMINAL:",
       "  theme <name>      - Change theme",
       "  size <w> <h>      - Change size",
@@ -1243,5 +1247,34 @@ export const baseCommands: Record<string, (args?: string[]) => string[]> = {
 
     result.push("");
     return result;
+  },
+
+  open: (args) => {
+    if (!args || args.length === 0) {
+      return [
+        "Usage: open <application>",
+        "",
+        "Available applications:",
+        "  player.exe    - Open music player",
+        "",
+        "Example: open player.exe",
+        "",
+      ];
+    }
+
+    const app = args[0];
+    if (app === "player.exe" || app === "./player.exe") {
+      // Импортируем динамически, чтобы избежать циклических зависимостей
+      import("../utils/musicPlayerManager").then((module) => {
+        module.openMusicPlayer();
+      });
+      return ["Opening music player...", ""];
+    }
+
+    return [
+      `Unknown application: ${app}`,
+      'Type "open" for available applications',
+      "",
+    ];
   },
 };

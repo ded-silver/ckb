@@ -94,3 +94,48 @@ export interface ProgressStats {
   serversHacked: number;
   filesRead: number;
 }
+
+export interface MusicTrack {
+  filename: string;
+  title: string;
+  artist: string;
+  duration: number;
+  format: "ogg" | "wav" | "mp3";
+}
+
+export interface MusicMetadata {
+  tracks: MusicTrack[];
+}
+
+export type MusicPlayerStatus = "stopped" | "playing" | "paused";
+export type RepeatMode = "off" | "one" | "all";
+export type ShuffleMode = boolean;
+export type VisualizationMode = "bars" | "waves" | "spectrum";
+
+export interface MusicPlayerState {
+  currentTrack: MusicTrack | null;
+  currentIndex: number;
+  playlist: MusicTrack[];
+  status: MusicPlayerStatus;
+  volume: number;
+  position: number;
+  duration: number;
+  shuffle: ShuffleMode;
+  repeat: RepeatMode;
+}
+
+export interface MusicPlayerSettings {
+  volume: number;
+  lastTrack?: string;
+  lastPosition?: number;
+  shuffle: ShuffleMode;
+  repeat: RepeatMode;
+  visualizationMode: VisualizationMode;
+  windowSize: { width: number; height: number };
+  windowPosition: { x: number; y: number };
+}
+
+export interface MusicPlayerProps {
+  theme: Theme;
+  onClose: () => void;
+}
