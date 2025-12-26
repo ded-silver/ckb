@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Test coverage
+coverage
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -37,3 +40,6 @@ public/music/*.flac
 public/music/*.m4a
 public/music/*.aac
 !public/music/metadata.json
+
+# Virtual filesystem content (for local reference only)
+/home

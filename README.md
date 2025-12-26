@@ -1,5 +1,7 @@
 # ═══════════════════════════════════════
+
 # CYBERPUNK TERMINAL v2.0.2077
+
 # ═══════════════════════════════════════
 
 ```
@@ -25,4 +27,4 @@ Some commands are hidden. Some files are locked. Some secrets await discovery.
 
 ---
 
-*Built with React + TypeScript. Welcome to the future of the past.*
+_Built with React + TypeScript. Welcome to the future of the past._

@@ -1,0 +1,529 @@
+.email-client {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  font-family: "Courier New", Courier, monospace;
+  cursor: grab;
+  user-select: none;
+}
+
+.email-client:active {
+  cursor: grabbing;
+}
+
+/* Header */
+.email-client-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 2px solid;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: grab;
+}
+
+.email-client:active .email-client-header {
+  cursor: grabbing;
+}
+
+.email-client-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.email-client-status {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Terminal */
+.email-client-terminal {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  cursor: text;
+  user-select: text;
+}
+
+.welcome-message {
+  margin-bottom: 16px;
+}
+
+.command-entry {
+  margin-bottom: 12px;
+}
+
+.command-line {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.prompt {
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.output-line {
+  padding-left: 24px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.output-line.error {
+  font-weight: bold;
+}
+
+/* Input */
+.command-input {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.input-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  padding: 0;
+  caret-color: transparent;
+}
+
+.text-measure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  white-space: pre;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.input-cursor {
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 1.2em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.input-cursor.visible {
+  opacity: 1;
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.email-client.glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Scrollbar */
+.email-client-terminal::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* ==================== THEMES ==================== */
+
+/* Theme 2077 (default) */
+.email-client.theme-2077 {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: #ff003c;
+  color: #ff003c;
+}
+
+.email-client.theme-2077 .email-client-header {
+  background: rgba(255, 0, 60, 0.1);
+  border-color: #ff003c;
+}
+
+.email-client.theme-2077 .prompt,
+.email-client.theme-2077 .command-line,
+.email-client.theme-2077 .output-line {
+  color: #ff003c;
+}
+
+.email-client.theme-2077 .input-field {
+  color: #ff003c;
+}
+
+.email-client.theme-2077 .input-cursor {
+  background: #ff003c;
+  border-color: #ff003c;
+  box-shadow:
+    0 0 8px rgba(255, 0, 60, 1),
+    0 0 12px rgba(255, 0, 60, 0.7);
+}
+
+.email-client.theme-2077 .output-line.error {
+  color: #ff6b9d;
+}
+
+.email-client.theme-2077 .email-client-terminal::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.email-client.theme-2077 .email-client-terminal::-webkit-scrollbar-thumb {
+  background: #ff003c;
+  border: 1px solid #000;
+}
+
+.email-client.theme-2077 .email-client-terminal::-webkit-scrollbar-thumb:hover {
+  background: #cc0029;
+}
+
+/* Theme dolbaeb */
+.email-client.theme-dolbaeb {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #000000;
+  color: #000000;
+}
+
+.email-client.theme-dolbaeb .email-client-header {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: #000000;
+}
+
+.email-client.theme-dolbaeb .prompt,
+.email-client.theme-dolbaeb .command-line,
+.email-client.theme-dolbaeb .output-line {
+  color: #000000;
+}
+
+.email-client.theme-dolbaeb .input-field {
+  color: #000000;
+}
+
+.email-client.theme-dolbaeb .input-cursor {
+  background: #000000;
+  border-color: #000000;
+  box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.8),
+    0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.email-client.theme-dolbaeb .output-line.error {
+  color: #ff0000;
+}
+
+.email-client.theme-dolbaeb .email-client-terminal::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.email-client.theme-dolbaeb .email-client-terminal::-webkit-scrollbar-thumb {
+  background: #000000;
+  border: 1px solid #ffffff;
+}
+
+.email-client.theme-dolbaeb .email-client-terminal::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
+
+/* Theme matrix */
+.email-client.theme-matrix {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: #00ff00;
+  color: #00ff00;
+}
+
+.email-client.theme-matrix .email-client-header {
+  background: rgba(0, 255, 0, 0.1);
+  border-color: #00ff00;
+}
+
+.email-client.theme-matrix .prompt,
+.email-client.theme-matrix .command-line,
+.email-client.theme-matrix .output-line {
+  color: #00ff00;
+}
+
+.email-client.theme-matrix .input-field {
+  color: #00ff00;
+}
+
+.email-client.theme-matrix .input-cursor {
+  background: #00ff00;
+  border-color: #00ff00;
+  box-shadow:
+    0 0 8px rgba(0, 255, 0, 1),
+    0 0 12px rgba(0, 255, 0, 0.7);
+}
+
+.email-client.theme-matrix .output-line.error {
+  color: #ff0000;
+}
+
+.email-client.theme-matrix .email-client-terminal::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.email-client.theme-matrix .email-client-terminal::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border: 1px solid #000;
+}
+
+.email-client.theme-matrix .email-client-terminal::-webkit-scrollbar-thumb:hover {
+  background: #00cc00;
+}
+
+/* Theme amber */
+.email-client.theme-amber {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: #ffaa00;
+  color: #ffaa00;
+}
+
+.email-client.theme-amber .email-client-header {
+  background: rgba(255, 170, 0, 0.1);
+  border-color: #ffaa00;
+}
+
+.email-client.theme-amber .prompt,
+.email-client.theme-amber .command-line,
+.email-client.theme-amber .output-line {
+  color: #ffaa00;
+}
+
+.email-client.theme-amber .input-field {
+  color: #ffaa00;
+}
+
+.email-client.theme-amber .input-cursor {
+  background: #ffaa00;
+  border-color: #ffaa00;
+  box-shadow:
+    0 0 8px rgba(255, 170, 0, 1),
+    0 0 12px rgba(255, 170, 0, 0.6);
+}
+
+.email-client.theme-amber .output-line.error {
+  color: #ff0000;
+}
+
+.email-client.theme-amber .email-client-terminal::-webkit-scrollbar-track {
+  background: #1a0f00;
+}
+
+.email-client.theme-amber .email-client-terminal::-webkit-scrollbar-thumb {
+  background: #ffaa00;
+  border: 1px solid #1a0f00;
+}
+
+.email-client.theme-amber .email-client-terminal::-webkit-scrollbar-thumb:hover {
+  background: #cc8800;
+}
+
+/* Theme anime */
+.email-client.theme-anime {
+  background: rgba(255, 240, 245, 0.95);
+  border-color: #ff69b4;
+  color: #ff69b4;
+}
+
+.email-client.theme-anime .email-client-header {
+  background: rgba(255, 105, 180, 0.15);
+  border-color: #ff69b4;
+}
+
+.email-client.theme-anime .prompt,
+.email-client.theme-anime .command-line,
+.email-client.theme-anime .output-line {
+  color: #ff69b4;
+  text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+.email-client.theme-anime .input-field {
+  color: #ff69b4;
+}
+
+.email-client.theme-anime .input-cursor {
+  background: #ff69b4;
+  border-color: #ff69b4;
+  box-shadow:
+    0 0 10px rgba(255, 105, 180, 1),
+    0 0 20px rgba(255, 182, 193, 0.8),
+    0 0 30px rgba(255, 192, 203, 0.6);
+  border-radius: 2px;
+}
+
+.email-client.theme-anime .output-line.error {
+  color: #ff1493;
+}
+
+.email-client.theme-anime .email-client-terminal::-webkit-scrollbar-track {
+  background: #ffe6f0;
+}
+
+.email-client.theme-anime .email-client-terminal::-webkit-scrollbar-thumb {
+  background: #ff69b4;
+  border: 1px solid #ffb6c1;
+  border-radius: 5px;
+}
+
+.email-client.theme-anime .email-client-terminal::-webkit-scrollbar-thumb:hover {
+  background: #ff1493;
+}
+
+/* Theme win95 */
+.email-client.theme-win95 {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  color: #000000;
+  box-shadow:
+    inset -1px -1px 0px #808080,
+    inset 1px 1px 0px #ffffff,
+    2px 2px 0px #000000;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+  font-size: 11px;
+}
+
+.email-client.theme-win95 .email-client-header {
+  background: #c0c0c0;
+  border-bottom: 1px inset #808080;
+  color: #000000;
+}
+
+.email-client.theme-win95 .prompt,
+.email-client.theme-win95 .command-line,
+.email-client.theme-win95 .output-line,
+.email-client.theme-win95 .welcome-message {
+  color: #000000;
+  text-shadow: none;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+}
+
+.email-client.theme-win95 .input-field {
+  color: #000000;
+  text-shadow: none;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+}
+
+.email-client.theme-win95 .text-measure,
+.email-client.theme-win95 .email-client-terminal {
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+  font-size: 11px;
+}
+
+.email-client.theme-win95 .input-cursor {
+  background: #000000;
+  border-color: #000000;
+  box-shadow: none;
+  width: 1px;
+  height: 14px;
+}
+
+.email-client.theme-win95 .output-line.error {
+  color: #800000;
+  text-shadow: none;
+}
+
+.email-client.theme-win95 .email-client-terminal::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px inset #c0c0c0;
+}
+
+.email-client.theme-win95 .email-client-terminal::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 1px outset #c0c0c0;
+  box-shadow:
+    inset -1px -1px 0px #808080,
+    inset 1px 1px 0px #ffffff;
+}
+
+.email-client.theme-win95 .email-client-terminal::-webkit-scrollbar-thumb:hover {
+  background: #d4d0c8;
+}
+
+/* Theme retro */
+.email-client.theme-retro {
+  background: rgba(10, 10, 10, 0.95);
+  border: 2px solid #ff00ff;
+  color: #ff00ff;
+}
+
+.email-client.theme-retro .email-client-header {
+  background: rgba(255, 0, 255, 0.1);
+  border-color: #ff00ff;
+}
+
+.email-client.theme-retro .prompt,
+.email-client.theme-retro .command-line,
+.email-client.theme-retro .output-line {
+  color: #ff00ff;
+  text-shadow:
+    0 0 5px rgba(255, 0, 255, 0.8),
+    0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.email-client.theme-retro .input-field {
+  color: #ff00ff;
+  text-shadow:
+    0 0 5px rgba(255, 0, 255, 0.8),
+    0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.email-client.theme-retro .input-cursor {
+  background: #ff00ff;
+  border-color: #ff00ff;
+  box-shadow:
+    0 0 10px rgba(255, 0, 255, 1),
+    0 0 20px rgba(255, 0, 255, 0.8),
+    0 0 30px rgba(0, 255, 255, 0.6);
+  width: 2px;
+  height: 18px;
+}
+
+.email-client.theme-retro .output-line.error {
+  color: #ff66ff;
+}
+
+.email-client.theme-retro .email-client-terminal::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border: 1px solid #ff00ff;
+}
+
+.email-client.theme-retro .email-client-terminal::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff00ff, #8000ff);
+  border: 1px solid #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+}
+
+.email-client.theme-retro .email-client-terminal::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff66ff, #aa00ff);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 1);
+}

@@ -1,22 +1,17 @@
-export type Theme =
-  | "2077"
-  | "dolbaeb"
-  | "matrix"
-  | "amber"
-  | "anime"
-  | "win95"
-  | "retro";
+import type { CommandName } from "@shared/config/commands";
+
+export type Theme = "2077" | "dolbaeb" | "matrix" | "amber" | "anime" | "win95" | "retro";
 
 export interface CommandEntry {
-  command: string;
-  output: string[];
+  command: CommandName | string;
+  output: readonly string[];
   isError?: boolean;
   isAnimated?: boolean;
   progress?: number;
 }
 
 export interface CommandResult {
-  output: string[];
+  output: readonly string[];
   isError?: boolean;
   isAnimated?: boolean;
   progress?: number;
@@ -26,16 +21,18 @@ export interface CommandResult {
   isVirusActive?: boolean;
 }
 
-export type CommandFunction = (args?: string[]) => string[] | Promise<string[]>;
+export type CommandFunction = (
+  args?: readonly string[]
+) => readonly string[] | Promise<readonly string[]>;
 
 export interface TerminalSize {
-  width: number;
-  height: number;
+  readonly width: number;
+  readonly height: number;
 }
 
 export interface UserInfo {
-  username: string;
-  hostname: string;
+  readonly username: string;
+  readonly hostname: string;
 }
 
 export interface TerminalProps {
@@ -53,11 +50,6 @@ export interface FileSystemNode {
   contents?: Record<string, FileSystemNode>;
 }
 
-export interface OutputLine {
-  text: string;
-  color?: "success" | "error" | "warning" | "info" | "default";
-}
-
 export interface MissionRequirement {
   type: "command" | "file_read" | "hack" | "scan" | "connect";
   target: string;
@@ -69,11 +61,11 @@ export interface Mission {
   title: string;
   description: string;
   hint: string;
-  requirements: MissionRequirement[];
-  reward: {
-    unlockFile?: string;
-    unlockCommand?: string;
-    unlockSecret?: string;
+  requirements: readonly MissionRequirement[];
+  readonly reward: {
+    readonly unlockFile?: string;
+    readonly unlockCommand?: string;
+    readonly unlockSecret?: string;
   };
   nextMission?: string;
 }
@@ -82,9 +74,9 @@ export interface Secret {
   id: string;
   name: string;
   description: string;
-  trigger: {
-    type: "command" | "file_read" | "mission_complete" | "combination";
-    condition: string | string[];
+  readonly trigger: {
+    readonly type: "command" | "file_read" | "mission_complete" | "combination";
+    readonly condition: string | readonly string[];
   };
 }
 
@@ -104,7 +96,7 @@ export interface MusicTrack {
 }
 
 export interface MusicMetadata {
-  tracks: MusicTrack[];
+  tracks: readonly MusicTrack[];
 }
 
 export type MusicPlayerStatus = "stopped" | "playing" | "paused";
@@ -115,7 +107,7 @@ export type VisualizationMode = "bars" | "waves" | "spectrum";
 export interface MusicPlayerState {
   currentTrack: MusicTrack | null;
   currentIndex: number;
-  playlist: MusicTrack[];
+  playlist: readonly MusicTrack[];
   status: MusicPlayerStatus;
   volume: number;
   position: number;
@@ -131,11 +123,13 @@ export interface MusicPlayerSettings {
   shuffle: ShuffleMode;
   repeat: RepeatMode;
   visualizationMode: VisualizationMode;
-  windowSize: { width: number; height: number };
-  windowPosition: { x: number; y: number };
+  readonly windowSize: { readonly width: number; readonly height: number };
+  readonly windowPosition: { readonly x: number; readonly y: number };
 }
 
 export interface MusicPlayerProps {
   theme: Theme;
   onClose: () => void;
+  zIndex?: number;
+  onFocus?: () => void;
 }
