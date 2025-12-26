@@ -5,9 +5,8 @@
  * Заменяет отдельные callbacks для каждого приложения единым менеджером.
  */
 
-export type AppName = "music" | "email" | "snake" | "tetris" | "hex" | "ports" | "fm";
+export type AppName = "music" | "email" | "snake" | "tetris" | "hex" | "ports" | "fm" | "webcam";
 
-// Конфигурация окна приложения
 export interface WindowSettings {
   defaultSize: { width: number; height: number };
   defaultPosition: { x: number; y: number };
@@ -17,7 +16,6 @@ export interface WindowSettings {
   maxSize?: { width: number; height: number };
 }
 
-// Конфигурация приложения
 export interface AppConfig {
   name: AppName;
   displayName: string;
@@ -42,7 +40,7 @@ export const APP_CONFIGS: Record<AppName, AppConfig> = {
     commands: ["music", "music open", "open player.exe", "player.exe"],
     windowSettings: {
       defaultSize: { width: 600, height: 400 },
-      defaultPosition: { x: 0, y: 0 }, // Центрируется при первом открытии
+      defaultPosition: { x: 0, y: 0 },
       resizable: true,
       draggable: true,
       minSize: { width: 400, height: 300 },
@@ -133,6 +131,21 @@ export const APP_CONFIGS: Record<AppName, AppConfig> = {
     },
     description: "Midnight Commander style file manager",
   },
+  webcam: {
+    name: "webcam",
+    displayName: "ASCII Webcam",
+    executable: "webcam.exe",
+    commands: ["webcam", "ascii-cam", "open webcam.exe", "webcam.exe"],
+    windowSettings: {
+      defaultSize: { width: 900, height: 700 },
+      defaultPosition: { x: 0, y: 0 },
+      resizable: true,
+      draggable: true,
+      minSize: { width: 400, height: 300 },
+      maxSize: { width: 1400, height: 1000 },
+    },
+    description: "Real-time ASCII art webcam viewer",
+  },
 };
 
 /**
@@ -177,6 +190,7 @@ class ApplicationManager {
       hex: false,
       ports: false,
       fm: false,
+      webcam: false,
     };
   }
 

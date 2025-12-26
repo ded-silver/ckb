@@ -51,6 +51,19 @@ export const handleOpenCommand = (args: string[]): CommandResult | null => {
     };
   }
 
+  if (
+    fileName === "webcam.exe" ||
+    fileName === "./webcam.exe" ||
+    fileName === "webcam/webcam.exe" ||
+    fileName === "./webcam/webcam.exe" ||
+    fileName.endsWith("/webcam.exe")
+  ) {
+    applicationManager.openApp("webcam");
+    return {
+      output: ["Opening ASCII Webcam...", ""],
+    };
+  }
+
   const currentDir = getCurrentDirectory();
   const fs = getFileSystem();
 
@@ -93,6 +106,12 @@ export const handleOpenCommand = (args: string[]): CommandResult | null => {
         applicationManager.openApp("snake");
         return {
           output: ["Opening Snake Game...", ""],
+        };
+      }
+      if (resolvedPath.includes("webcam.exe")) {
+        applicationManager.openApp("webcam");
+        return {
+          output: ["Opening ASCII Webcam...", ""],
         };
       }
       return {
@@ -147,6 +166,18 @@ export const handleDotSlashCommand = (command: string): CommandResult | null => 
     };
   }
 
+  if (
+    filePath === "webcam.exe" ||
+    filePath === "webcam/webcam.exe" ||
+    filePath === "./webcam/webcam.exe" ||
+    filePath.endsWith("/webcam.exe")
+  ) {
+    applicationManager.openApp("webcam");
+    return {
+      output: ["Opening ASCII Webcam...", ""],
+    };
+  }
+
   const currentDir = getCurrentDirectory();
   const fs = getFileSystem();
 
@@ -171,6 +202,12 @@ export const handleDotSlashCommand = (command: string): CommandResult | null => 
         applicationManager.openApp("snake");
         return {
           output: ["Opening Snake Game...", ""],
+        };
+      }
+      if (filePath.includes("webcam.exe") || resolvedPath.includes("webcam.exe")) {
+        applicationManager.openApp("webcam");
+        return {
+          output: ["Opening ASCII Webcam...", ""],
         };
       }
       return {

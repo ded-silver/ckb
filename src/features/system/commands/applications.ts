@@ -9,9 +9,11 @@ export const applicationsCommands: Record<string, CommandFunction> = {
         "Available applications:",
         "  player.exe    - Open music player",
         "  mail.exe      - Open mail client",
+        "  webcam.exe    - Open ASCII webcam",
         "",
         "Example: open player.exe",
         "Example: open mail.exe",
+        "Example: open webcam.exe",
         "",
       ];
     }
@@ -31,6 +33,25 @@ export const applicationsCommands: Record<string, CommandFunction> = {
       return ["Opening mail client...", ""];
     }
 
+    if (app === "webcam.exe" || app === "./webcam.exe") {
+      import("@shared/lib/applicationManager").then(module => {
+        module.applicationManager.openApp("webcam");
+      });
+      return ["Opening ASCII Webcam...", ""];
+    }
+
     return [`Unknown application: ${app}`, 'Type "open" for available applications', ""];
+  },
+  webcam: async () => {
+    import("@shared/lib/applicationManager").then(module => {
+      module.applicationManager.openApp("webcam");
+    });
+    return ["Opening ASCII Webcam...", ""];
+  },
+  "ascii-cam": async () => {
+    import("@shared/lib/applicationManager").then(module => {
+      module.applicationManager.openApp("webcam");
+    });
+    return ["Opening ASCII Webcam...", ""];
   },
 };

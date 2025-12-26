@@ -11,6 +11,7 @@ import {
 } from "@shared/lib/applicationManager";
 import { createDestroyOverlay } from "@shared/lib/destroy";
 import { soundGenerator } from "@shared/lib/sounds";
+import { ASCIIWebcam } from "@widgets/ascii-webcam/ui/ASCIIWebcam";
 import { EmailClient } from "@widgets/email-client/ui";
 import { MatrixRain } from "@widgets/matrix-rain/ui";
 import { MusicPlayer } from "@widgets/music-player/ui";
@@ -154,6 +155,14 @@ function App() {
           onClose={() => applicationManager.closeApp("snake")}
           zIndex={zIndexes.snake}
           onFocus={() => applicationManager.bringToFront("snake")}
+        />
+      )}
+      {openApps.webcam && (
+        <ASCIIWebcam
+          theme={theme}
+          onClose={() => applicationManager.closeApp("webcam")}
+          zIndex={zIndexes.webcam}
+          onFocus={() => applicationManager.bringToFront("webcam")}
         />
       )}
     </div>

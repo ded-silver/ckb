@@ -1,0 +1,745 @@
+/* ASCII Webcam Styles */
+.ascii-webcam {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  font-family: "Courier New", Courier, monospace;
+  cursor: grab;
+  user-select: none;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.ascii-webcam:active {
+  cursor: grabbing;
+}
+
+/* Header */
+.ascii-webcam-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 2px solid;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+.ascii-webcam:active .ascii-webcam-header {
+  cursor: grabbing;
+}
+
+.ascii-webcam-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ascii-webcam-status {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.ascii-webcam-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 16px;
+  gap: 16px;
+  cursor: default;
+}
+
+/* ASCII Preview Container - фиксированная высота */
+.ascii-preview-container {
+  flex-shrink: 0;
+  min-height: 300px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--accent-color);
+  background: #000;
+  overflow: hidden;
+}
+
+.ascii-preview {
+  flex: 1;
+  padding: 8px;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.ascii-preview pre {
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Terminal Section - прокручиваемая область */
+.ascii-webcam-terminal {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 13px;
+  line-height: 1.6;
+  cursor: text;
+  user-select: text;
+}
+
+.ascii-output {
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  line-height: 1;
+  white-space: pre;
+  margin: 0;
+  padding: 0;
+  color: var(--accent-color);
+}
+
+.welcome-message {
+  margin-bottom: 16px;
+}
+
+.start-prompt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  border: 1px dashed;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.error-message {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid;
+  text-align: center;
+}
+
+.command-entry {
+  margin-bottom: 12px;
+}
+
+.command-line {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.prompt {
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.output-line {
+  padding-left: 24px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.output-line.error {
+  font-weight: bold;
+}
+
+/* Input */
+.command-input {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.input-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  padding: 0;
+  caret-color: transparent;
+}
+
+.text-measure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  white-space: pre;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.input-cursor {
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 1.2em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.input-cursor.visible {
+  opacity: 1;
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.ascii-webcam.glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Scrollbar */
+.ascii-webcam-terminal::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* ==================== THEMES ==================== */
+
+/* Theme 2077 (default) */
+.ascii-webcam.theme-2077 {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: #ff003c;
+  color: #ff003c;
+}
+
+.ascii-webcam.theme-2077 .ascii-webcam-header {
+  background: rgba(255, 0, 60, 0.1);
+  border-color: #ff003c;
+}
+
+.ascii-webcam.theme-2077 .ascii-preview-container {
+  border-color: #ff003c;
+  background: #000;
+}
+
+.ascii-webcam.theme-2077 .start-prompt {
+  border-color: #ff003c;
+  color: #ff003c;
+}
+
+.ascii-webcam.theme-2077 .error-message {
+  border-color: #ff6b9d;
+  color: #ff6b9d;
+}
+
+.ascii-webcam.theme-2077 .ascii-output {
+  color: #ff003c;
+}
+
+.ascii-webcam.theme-2077 .prompt,
+.ascii-webcam.theme-2077 .command-line,
+.ascii-webcam.theme-2077 .output-line {
+  color: #ff003c;
+}
+
+.ascii-webcam.theme-2077 .input-field {
+  color: #ff003c;
+}
+
+.ascii-webcam.theme-2077 .input-cursor {
+  background: #ff003c;
+  border-color: #ff003c;
+  box-shadow:
+    0 0 8px rgba(255, 0, 60, 1),
+    0 0 12px rgba(255, 0, 60, 0.7);
+}
+
+.ascii-webcam.theme-2077 .output-line.error {
+  color: #ff6b9d;
+}
+
+.ascii-webcam.theme-2077 .ascii-webcam-terminal::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.ascii-webcam.theme-2077 .ascii-webcam-terminal::-webkit-scrollbar-thumb {
+  background: #ff003c;
+  border: 1px solid #000;
+}
+
+.ascii-webcam.theme-2077 .ascii-webcam-terminal::-webkit-scrollbar-thumb:hover {
+  background: #cc0029;
+}
+
+/* Theme dolbaeb */
+.ascii-webcam.theme-dolbaeb {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #000000;
+  color: #000000;
+}
+
+.ascii-webcam.theme-dolbaeb .ascii-webcam-header {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: #000000;
+}
+
+.ascii-webcam.theme-dolbaeb .ascii-preview-container {
+  border-color: #000000;
+  background: #ffffff;
+}
+
+.ascii-webcam.theme-dolbaeb .start-prompt {
+  border-color: #000000;
+  color: #000000;
+}
+
+.ascii-webcam.theme-dolbaeb .error-message {
+  border-color: #ff0000;
+  color: #ff0000;
+}
+
+.ascii-webcam.theme-dolbaeb .ascii-output {
+  color: #000000;
+}
+
+.ascii-webcam.theme-dolbaeb .prompt,
+.ascii-webcam.theme-dolbaeb .command-line,
+.ascii-webcam.theme-dolbaeb .output-line {
+  color: #000000;
+}
+
+.ascii-webcam.theme-dolbaeb .input-field {
+  color: #000000;
+}
+
+.ascii-webcam.theme-dolbaeb .input-cursor {
+  background: #000000;
+  border-color: #000000;
+  box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.8),
+    0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.ascii-webcam.theme-dolbaeb .output-line.error {
+  color: #ff0000;
+}
+
+.ascii-webcam.theme-dolbaeb .ascii-webcam-terminal::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.ascii-webcam.theme-dolbaeb .ascii-webcam-terminal::-webkit-scrollbar-thumb {
+  background: #000000;
+  border: 1px solid #ffffff;
+}
+
+.ascii-webcam.theme-dolbaeb .ascii-webcam-terminal::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
+
+/* Theme matrix */
+.ascii-webcam.theme-matrix {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: #00ff00;
+  color: #00ff00;
+}
+
+.ascii-webcam.theme-matrix .ascii-webcam-header {
+  background: rgba(0, 255, 0, 0.1);
+  border-color: #00ff00;
+}
+
+.ascii-webcam.theme-matrix .ascii-preview-container {
+  border-color: #00ff00;
+  background: #000;
+}
+
+.ascii-webcam.theme-matrix .start-prompt {
+  border-color: #00ff00;
+  color: #00ff00;
+}
+
+.ascii-webcam.theme-matrix .error-message {
+  border-color: #ff0000;
+  color: #ff0000;
+}
+
+.ascii-webcam.theme-matrix .ascii-output {
+  color: #00ff00;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.ascii-webcam.theme-matrix .prompt,
+.ascii-webcam.theme-matrix .command-line,
+.ascii-webcam.theme-matrix .output-line {
+  color: #00ff00;
+}
+
+.ascii-webcam.theme-matrix .input-field {
+  color: #00ff00;
+}
+
+.ascii-webcam.theme-matrix .input-cursor {
+  background: #00ff00;
+  border-color: #00ff00;
+  box-shadow:
+    0 0 8px rgba(0, 255, 0, 1),
+    0 0 12px rgba(0, 255, 0, 0.7);
+}
+
+.ascii-webcam.theme-matrix .output-line.error {
+  color: #ff0000;
+}
+
+.ascii-webcam.theme-matrix .ascii-webcam-terminal::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.ascii-webcam.theme-matrix .ascii-webcam-terminal::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border: 1px solid #000;
+}
+
+.ascii-webcam.theme-matrix .ascii-webcam-terminal::-webkit-scrollbar-thumb:hover {
+  background: #00cc00;
+}
+
+/* Theme amber */
+.ascii-webcam.theme-amber {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: #ffaa00;
+  color: #ffaa00;
+}
+
+.ascii-webcam.theme-amber .ascii-webcam-header {
+  background: rgba(255, 170, 0, 0.1);
+  border-color: #ffaa00;
+}
+
+.ascii-webcam.theme-amber .ascii-preview-container {
+  border-color: #ffaa00;
+  background: #1a0f00;
+}
+
+.ascii-webcam.theme-amber .start-prompt {
+  border-color: #ffaa00;
+  color: #ffaa00;
+}
+
+.ascii-webcam.theme-amber .error-message {
+  border-color: #ff0000;
+  color: #ff0000;
+}
+
+.ascii-webcam.theme-amber .ascii-output {
+  color: #ffaa00;
+}
+
+.ascii-webcam.theme-amber .prompt,
+.ascii-webcam.theme-amber .command-line,
+.ascii-webcam.theme-amber .output-line {
+  color: #ffaa00;
+}
+
+.ascii-webcam.theme-amber .input-field {
+  color: #ffaa00;
+}
+
+.ascii-webcam.theme-amber .input-cursor {
+  background: #ffaa00;
+  border-color: #ffaa00;
+  box-shadow:
+    0 0 8px rgba(255, 170, 0, 1),
+    0 0 12px rgba(255, 170, 0, 0.6);
+}
+
+.ascii-webcam.theme-amber .output-line.error {
+  color: #ff0000;
+}
+
+.ascii-webcam.theme-amber .ascii-webcam-terminal::-webkit-scrollbar-track {
+  background: #1a0f00;
+}
+
+.ascii-webcam.theme-amber .ascii-webcam-terminal::-webkit-scrollbar-thumb {
+  background: #ffaa00;
+  border: 1px solid #1a0f00;
+}
+
+.ascii-webcam.theme-amber .ascii-webcam-terminal::-webkit-scrollbar-thumb:hover {
+  background: #cc8800;
+}
+
+/* Theme anime */
+.ascii-webcam.theme-anime {
+  background: rgba(255, 240, 245, 0.95);
+  border-color: #ff69b4;
+  color: #ff69b4;
+}
+
+.ascii-webcam.theme-anime .ascii-webcam-header {
+  background: rgba(255, 105, 180, 0.15);
+  border-color: #ff69b4;
+}
+
+.ascii-webcam.theme-anime .ascii-preview-container {
+  border-color: #ff69b4;
+  background: #ffe6f0;
+}
+
+.ascii-webcam.theme-anime .start-prompt {
+  border-color: #ff69b4;
+  color: #ff69b4;
+}
+
+.ascii-webcam.theme-anime .error-message {
+  border-color: #ff1493;
+  color: #ff1493;
+}
+
+.ascii-webcam.theme-anime .ascii-output {
+  color: #ff1493;
+}
+
+.ascii-webcam.theme-anime .prompt,
+.ascii-webcam.theme-anime .command-line,
+.ascii-webcam.theme-anime .output-line {
+  color: #ff69b4;
+  text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+.ascii-webcam.theme-anime .input-field {
+  color: #ff69b4;
+}
+
+.ascii-webcam.theme-anime .input-cursor {
+  background: #ff69b4;
+  border-color: #ff69b4;
+  box-shadow:
+    0 0 10px rgba(255, 105, 180, 1),
+    0 0 20px rgba(255, 182, 193, 0.8),
+    0 0 30px rgba(255, 192, 203, 0.6);
+  border-radius: 2px;
+}
+
+.ascii-webcam.theme-anime .output-line.error {
+  color: #ff1493;
+}
+
+.ascii-webcam.theme-anime .ascii-webcam-terminal::-webkit-scrollbar-track {
+  background: #ffe6f0;
+}
+
+.ascii-webcam.theme-anime .ascii-webcam-terminal::-webkit-scrollbar-thumb {
+  background: #ff69b4;
+  border: 1px solid #ffb6c1;
+  border-radius: 5px;
+}
+
+.ascii-webcam.theme-anime .ascii-webcam-terminal::-webkit-scrollbar-thumb:hover {
+  background: #ff1493;
+}
+
+/* Theme win95 */
+.ascii-webcam.theme-win95 {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  color: #000000;
+  box-shadow:
+    inset -1px -1px 0px #808080,
+    inset 1px 1px 0px #ffffff,
+    2px 2px 0px #000000;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+  font-size: 11px;
+}
+
+.ascii-webcam.theme-win95 .ascii-webcam-header {
+  background: #c0c0c0;
+  border-bottom: 1px inset #808080;
+}
+
+.ascii-webcam.theme-win95 .ascii-preview-container {
+  border: 1px inset #808080;
+  background: #c0c0c0;
+}
+
+.ascii-webcam.theme-win95 .start-prompt {
+  border: 1px inset #808080;
+  color: #000000;
+}
+
+.ascii-webcam.theme-win95 .error-message {
+  border: 1px inset #800000;
+  color: #800000;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.ascii-webcam.theme-win95 .ascii-output {
+  color: #000000;
+}
+
+.ascii-webcam.theme-win95 .prompt,
+.ascii-webcam.theme-win95 .command-line,
+.ascii-webcam.theme-win95 .output-line,
+.ascii-webcam.theme-win95 .welcome-message {
+  color: #000000;
+  text-shadow: none;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+}
+
+.ascii-webcam.theme-win95 .input-field {
+  color: #000000;
+  text-shadow: none;
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+}
+
+.ascii-webcam.theme-win95 .text-measure,
+.ascii-webcam.theme-win95 .ascii-webcam-terminal {
+  font-family: "Fixedsys", "Terminal", "Courier New", monospace;
+  font-size: 11px;
+}
+
+.ascii-webcam.theme-win95 .input-cursor {
+  background: #000000;
+  border-color: #000000;
+  box-shadow: none;
+  width: 1px;
+  height: 14px;
+}
+
+.ascii-webcam.theme-win95 .output-line.error {
+  color: #800000;
+  text-shadow: none;
+}
+
+.ascii-webcam.theme-win95 .ascii-webcam-terminal::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px inset #c0c0c0;
+}
+
+.ascii-webcam.theme-win95 .ascii-webcam-terminal::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 1px outset #c0c0c0;
+  box-shadow:
+    inset -1px -1px 0px #808080,
+    inset 1px 1px 0px #ffffff;
+}
+
+.ascii-webcam.theme-win95 .ascii-webcam-terminal::-webkit-scrollbar-thumb:hover {
+  background: #d4d0c8;
+}
+
+/* Theme retro */
+.ascii-webcam.theme-retro {
+  background: rgba(10, 10, 10, 0.95);
+  border: 2px solid #ff00ff;
+  color: #ff00ff;
+}
+
+.ascii-webcam.theme-retro .ascii-webcam-header {
+  background: rgba(255, 0, 255, 0.1);
+  border-color: #ff00ff;
+}
+
+.ascii-webcam.theme-retro .ascii-preview-container {
+  border-color: #ff00ff;
+  background: #0a0a0a;
+}
+
+.ascii-webcam.theme-retro .start-prompt {
+  border-color: #ff00ff;
+  color: #ff00ff;
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+}
+
+.ascii-webcam.theme-retro .error-message {
+  border-color: #ff1493;
+  color: #ff1493;
+  text-shadow: 0 0 5px rgba(255, 20, 147, 0.5);
+}
+
+.ascii-webcam.theme-retro .ascii-output {
+  color: #ff00ff;
+  text-shadow:
+    0 0 5px rgba(255, 0, 255, 0.5),
+    0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.ascii-webcam.theme-retro .prompt,
+.ascii-webcam.theme-retro .command-line,
+.ascii-webcam.theme-retro .output-line {
+  color: #ff00ff;
+  text-shadow:
+    0 0 5px rgba(255, 0, 255, 0.8),
+    0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.ascii-webcam.theme-retro .input-field {
+  color: #ff00ff;
+  text-shadow:
+    0 0 5px rgba(255, 0, 255, 0.8),
+    0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.ascii-webcam.theme-retro .input-cursor {
+  background: #ff00ff;
+  border-color: #ff00ff;
+  box-shadow:
+    0 0 10px rgba(255, 0, 255, 1),
+    0 0 20px rgba(255, 0, 255, 0.8),
+    0 0 30px rgba(0, 255, 255, 0.6);
+  width: 2px;
+  height: 18px;
+}
+
+.ascii-webcam.theme-retro .output-line.error {
+  color: #ff66ff;
+}
+
+.ascii-webcam.theme-retro .ascii-webcam-terminal::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border: 1px solid #ff00ff;
+}
+
+.ascii-webcam.theme-retro .ascii-webcam-terminal::-webkit-scrollbar-thumb {
+  background: #ff00ff;
+  border: 1px solid #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+}
+
+.ascii-webcam.theme-retro .ascii-webcam-terminal::-webkit-scrollbar-thumb:hover {
+  background: #cc00cc;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 1);
+}
